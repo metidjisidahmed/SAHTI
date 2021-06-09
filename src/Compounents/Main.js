@@ -1,24 +1,25 @@
 import logo from "../logo.svg";
+import HeaderCompounent from "./Header/HeaderCompounent";
+import {Route, Switch, useLocation} from "react-router-dom";
+import HomeCompounent from "./Home/HomeCompounent";
+import SignUpCompounent from "./SignUp/SignUpCompounent";
+import {ThemeProvider} from "@material-ui/core/styles";
+import React from "react";
 
 
 export default function Main(props){
+    let routeLocation = useLocation ();
+    let locationPathName = routeLocation.pathname;
     return (
-        <div >
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+       <React.Fragment>
+           <HeaderCompounent path={locationPathName}/>
+           <Switch>
+               <Route exact path='/' component={()=><HomeCompounent/>} />
+               <Route path='/login' component={()=>{return <SignUpCompounent/>}} />
+               {/*<Redirect to="/" />*/}
+           </Switch>
+       </React.Fragment>
+
     )
 
 }

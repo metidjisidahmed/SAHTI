@@ -3,6 +3,11 @@ import './App.css';
 import Main from "./Compounents/Main";
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import HeaderCompounent from "./Compounents/Header/HeaderCompounent";
+import SignUpCompounent from "./Compounents/SignUp/SignUpCompounent";
+import {BrowserRouter, Redirect, Route, withRouter, Switch , useLocation} from "react-router-dom";
+import HomeCompounent from "./Compounents/Home/HomeCompounent";
+
+
 
 const theme = createMuiTheme({
   palette: {
@@ -79,11 +84,15 @@ const theme = createMuiTheme({
 });
 
 function App() {
+
   return (
-      <ThemeProvider theme={theme}>
-         <HeaderCompounent/>
-         <Main/>
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+            <Main/>
+            {/*<SignUpCompounent/>*/}
+        </ThemeProvider>
+      </BrowserRouter>
+
 
   );
 }

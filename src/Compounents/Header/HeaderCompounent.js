@@ -12,6 +12,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {ButtonGroup , Button} from "@material-ui/core";
+import {Link, useLocation} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function HeaderCompounent() {
+export default function HeaderCompounent({path}) {
     const classes = useStyles();
-    const [auth, setAuth] = React.useState(true);
+    const [auth, setAuth] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -42,15 +43,16 @@ export default function HeaderCompounent() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    console.log("PATH =", path);
+    if(path==='/login' || path ==='/signup') return null
     return (
         <div className={classes.root}>
-            <FormGroup>
-                <FormControlLabel
-                    control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-                    label={auth ? 'Logout' : 'Login'}
-                />
-            </FormGroup>
+            {/*<FormGroup>*/}
+            {/*    <FormControlLabel*/}
+            {/*        control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}*/}
+            {/*        label={auth ? 'Logout' : 'Login'}*/}
+            {/*    />*/}
+            {/*</FormGroup>*/}
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -62,8 +64,8 @@ export default function HeaderCompounent() {
                     {
                         !auth && (
                             <React.Fragment>
-                                <Button size="large" variant="outlined" style={{marginRight  : '0.5rem'}}>Sign Up</Button>
-                                <Button size="large" variant="outlined" >Login</Button>
+                                <Link to={'/login'} style={{textDecoration : 'none'}}><Button size="large" variant="outlined" style={{marginRight  : '0.5rem'}}>Sign Up</Button></Link>
+                                <Link to={'/login'} style={{textDecoration : 'none'}}><Button size="large" variant="outlined" >Login</Button></Link>
                             </React.Fragment>
                         )
                     }
