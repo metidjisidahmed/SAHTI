@@ -15,14 +15,16 @@ import {
     FormControlLabel,Radio
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
-import {AddBox, Cached, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
+import {AddBox, AssignmentTurnedIn, Cached, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "react-loader-spinner";
 import { tableIcons, tableLang } from '../widgets/TableWidget';
-import {Save} from "@material-ui/icons";
-
-
+import {Save , VerifiedUser , ChevronLeft} from "@material-ui/icons";
+import { Drawer , Divider , Hidden} from "@material-ui/core";
+import clsx from 'clsx';
 import moment from "moment";
+import {useStylesApp} from "../../GlobalStyle/globalStyle";
+
 
 /* Dialog Transition animation */
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -69,158 +71,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function AddVaccinationDialogForm({setFormAddVaccination , formAddVaccination , submitAddVaccination , isModify , submitPatchVaccination}){
-    const classes = useStyles();
-    return(
-        <div style={{padding:'2% 10%' , marginTop :'5rem'}}>
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                spacing={2}
-            >
-                <Grid item xs={12}>
-                    <Grid item xs={12}  >
-                        <Typography
-                            variant= 'h4'
-                            align="center"
-                            color="primary"
-                            gutterBottom
-                        > {isModify ? 'Modifier la demande de vaccination  : ' + formAddVaccination.code : 'Ajouter une demande de vaccination'}</Typography>
-
-                    </Grid>
-                    <form onSubmit={console.log('submitted')}>
-
-                        <Grid
-                            container
-                            spacing={3}
-                            direction="row"
-                            justify="space-between"
-                            alignItems="center"
-
-                        >
-                            {/*Age*/}
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    type="number"
-                                    onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,  [event.target.name] : Number(event.target.value) } })}
-                                    defaultValue={isModify ? formAddVaccination.age : ''}
-                                    disabled={isModify}
-                                    name="age"
-                                    id="age"
-                                    label="age"
-                                    variant="filled"
-                                    required
-                                    fullWidth
-                                />
-                            </Grid>
-                            {/*Etat*/}
-                            <Grid item xs={12} sm={6}>
-                                <FormControl variant="filled" className={classes.formControl}>
-                                    <InputLabel htmlFor="etat">Etat courant</InputLabel>
-                                    <Select
-                                        onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,[event.target.name] : event.target.value } })}
-                                        native
-                                        defaultValue={isModify ? formAddVaccination.etat : ''}                                        //onChange={handleChange}
-                                        inputProps={{
-                                            name: 'etat',
-                                            id: 'etat',
-                                        }}
-                                    >
-                                        <option key='malade' value='malade' >Malade</option>
-                                        <option key='sain' value='sain' >Sain</option>
-
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            {/*Situation vis-à-vis de la pandémie*/}
-                            <Grid item xs={12} sm={6}>
-
-                                <FormControl variant="filled" className={classes.formControl}>
-                                    <InputLabel htmlFor="situation">Situation vis-à-vis de la pandémie</InputLabel>
-                                    <Select
-                                        onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
-                                        native
-                                        defaultValue={isModify ? formAddVaccination.situation : ''}
-                                        //onChange={handleChange}
-                                        inputProps={{
-                                            name: 'situation',
-                                            id: 'situation',
-                                        }}
-                                    >
-                                        <option key="ancienPorteur" value="ancienPorteur" >Ancien porteur ( guéris )</option>
-                                        <option key="nonAtteint" value="nonAtteint" >Non atteint</option>
-
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            {/*Entourage suspect*/}
-                            <Grid item xs={12} sm={6}>
-
-                                <FormControl variant="filled" className={classes.formControl}>
-                                    <InputLabel htmlFor="situation">Entourage suspect</InputLabel>
-                                    <Select
-                                        onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
-                                        native
-                                        defaultValue={isModify ? formAddVaccination.suspects : ''}
-                                        //onChange={handleChange}
-                                        inputProps={{
-                                            name: 'suspects',
-                                            id: 'suspects',
-                                        }}
-                                    >
-                                        <option key="ancienPorteur" value="ancienPorteur" >Personne 1</option>
-                                        <option key="nonAtteint" value="nonAtteint" >Personne 2</option>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            {/*Téléphone*/}
-                            <Grid item xs={12} sm={6} >
-                                <TextField
-
-                                    onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,[event.target.name] : event.target.value } })}
-                                    defaultValue={isModify ? formAddVaccination.phoneNumber : ''}
-                                    name="phoneNumber"
-                                    id="phoneNumber"
-                                    label="Téléphone"
-                                    variant="filled"
-                                    required
-                                    fullWidth
-                                    // inputRef={props.myRef}
-                                />
-
-                            </Grid>
-                            {/*Email*/}
-                            <Grid item xs={12} sm={6} >
-                                <TextField
-
-                                    onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,[event.target.name] : event.target.value } })}
-                                    defaultValue={isModify ? formAddVaccination.email : ''}
-                                    name="email"
-                                    id="email"
-                                    label="Email"
-                                    variant="filled"
-                                    required
-                                    fullWidth
-                                />
-
-                            </Grid>
-
-                            <Grid item xs={12}  >
-                                <Button  startIcon={<Save />} disabled={!(formAddVaccination.age && formAddVaccination.etat && formAddVaccination.situation && formAddVaccination.suspects  && (formAddVaccination.phoneNumber || formAddVaccination.email) ) } onClick={()=>!isModify ? submitAddVaccination() : submitPatchVaccination()}   color="primary" variant="outlined" size="large" style={{fontWeight : 'bold'}} >
-                                    Enregistrer les modification
-                                </Button>
-                            </Grid>
-
-
-                        </Grid>
-                    </form>
-                </Grid>
-            </Grid>
-        </div>
-    )
-}
 
 
 const Medecin = (props) => {
@@ -233,26 +83,39 @@ const Medecin = (props) => {
         {
             ord : 1,
             nss : 'nss 1',
-            etat : 'Malade',
-
             nom : 'Metidji',
-            prenom : 'Sid Ahmed'
-        },
-        {
-            ord : 3,
-            nom : 'Hassani',
-            prenom : 'Mehdi'
-        } ,
-        {
-            ord : 4,
-            nom : 'Bacha',
-            prenom : 'Amine'
+            prenom : 'Sid Ahmed',
+            age : 23,
+            etat : 'Malade',
+            situation : 'nonAtteint',
+            suspects : 'Oui',
+            phoneNumber : '0555555555',
+            email : 'sidahmed@gmail.com'
         },
         {
             ord : 2,
+            nss : 'nss 2',
             nom : 'Si Ahmed',
-            prenom : 'Massinissa'
-        } ,
+            prenom : 'Massinissa',
+            age : 23,
+            etat : 'Sain',
+            situation : 'nonAtteint',
+            suspects : 'Oui',
+            phoneNumber : '0555555555',
+            email : 'siahmed@gmail.com'
+        },
+        {
+            ord : 3,
+            nss : 'nss 1',
+            nom : 'Metidji',
+            prenom : 'Sid Ahmed',
+            age : 23,
+            etat : 'Malade',
+            situation : 'nonAtteint',
+            suspects : 'Oui',
+            phoneNumber : '0555555555',
+            email : 'sidahmed@gmail.com'
+        }
     ];
 
 
@@ -320,12 +183,27 @@ const Medecin = (props) => {
     };
 
 
+    // ord : 1,
+    //     nss : 'nss 1',
+    //     nom : 'Metidji',
+    //     prenom : 'Sid Ahmed',
+    //     age : 23,
+    //     etat : 'Malade',
+    //     situation : 'nonAtteint',
+    //     phoneNumber : '0555555555',
+    //     email : 'sidahmed@gmail.com'
     const columns = [
         // { field : 'nss' , title : 'NSS'} ,
         {field:  'ord' , title : "Ordre" , defaultSort : "asc" },
-        { field: 'nom', title: 'Nom' , sorting : false},
+        {field: 'nss' , title: 'NSS' , sorting: false},
+        { field: 'nom', title: 'Nom' },
         { field: 'prenom', title: 'Prenom' , sorting : false},
-
+        {field : 'age' , title :'Age'  },
+        {field : 'etat' , title : 'Etat Courant' , sorting: false , grouping : true},
+        {field: 'situation' , title : 'Situation vis-à-vis de la pandémie' },
+        {field : 'suspects' , title : 'Entourage suspect ?'},
+        {field: 'phoneNumber', title : 'Numero de téléphone'},
+        {field : 'email' , title : 'Email'}
     ];
 
 
@@ -333,7 +211,7 @@ const Medecin = (props) => {
     const tableOptions = {
         actionsColumnIndex: 0 ,
         search: true ,
-        grouping: false ,
+        grouping: true ,
         sorting : true
 
     };
@@ -423,12 +301,12 @@ const Medecin = (props) => {
                                     isFreeAction: true,
                                     onClick: () => setRefresh(refresh + 1)
                                 },
-                                {
-                                    tooltip: 'Ajouter',
-                                    icon: () =>  <AddBox fontSize="default"  />,
-                                    isFreeAction: true,
-                                    onClick: () => setAddVaccinationDialogStatus(true)
-                                },
+                                rowData=>({
+                                    tooltip: "Confirmer le Rendez-vous",
+                                    icon: () =>  <AssignmentTurnedIn fontSize="default" className={classes.icon_button_green} />,
+                                    onClick: () => console.log('Confirmer le rdv'),
+                                    hidden : false
+                                }),
                             ]}
 
                             // editable={props.write ? {
@@ -441,49 +319,6 @@ const Medecin = (props) => {
                 )
                 }
             </Grid>
-            <Dialog  open={isAddVaccinationDialogOpen} onClose={handleCloseAddCouponDialog} TransitionComponent={Transition} fullWidth fullScreen>
-                {/* MAIN BAR */}
-                <AppBar className={classes.appBar_dialog}>
-                    <Toolbar>
-                        <IconButton size="small" edge="start" color="secondary" onClick={handleCloseAddCouponDialog} aria-label="close">
-                            <Close />
-                        </IconButton>
-                        <Typography variant="h6" color="secondary" className={classes.title_dialog}>
-                            { isModify ? 'Modifier un Coupon' : 'Ajouter un Coupon' }
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-
-                <AddVaccinationDialogForm isModify={isModify} submitAddVaccination={submitAddVaccination} submitPatchVaccination={submitPatchVaccination()} setFormAddVaccination={setFormAddVaccination} formAddVaccination={formAddVaccination} />
-
-                {/*<div className={classes.tab_appBar_dialog}>*/}
-                {/*    /!* TABS*!/*/}
-                {/*    <AppBar position="static" color="default">*/}
-                {/*        <Tabs*/}
-                {/*            value={tabvalue}*/}
-                {/*            onChange={handleChangeTabs}*/}
-                {/*            variant="fullWidth"*/}
-                {/*            //scrollButtons="on"*/}
-                {/*            indicatorColor="primary"*/}
-                {/*            textColor="primary"*/}
-                {/*            aria-label="form tabs"*/}
-                {/*            centered*/}
-                {/*        >*/}
-                {/*            <Tab label="Modifier le profile" icon={<Face />} {...a11yProps(0)} />*/}
-                {/*            <Tab label="Modifier le vehicule" icon={<LocalTaxi />} {...a11yProps(1)} />*/}
-                {/*            <Tab label="modifier la line" icon={<MapRounded />} {...a11yProps(2)} />*/}
-                {/*            <Tab label="modifier la zone" icon={<Explore />} {...a11yProps(3)} />*/}
-                {/*        </Tabs>*/}
-                {/*    </AppBar>*/}
-
-
-
-
-
-
-
-                {/*</div>*/}
-            </Dialog>
 
         </React.Fragment>
 

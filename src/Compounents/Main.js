@@ -14,14 +14,17 @@ export default function Main(props){
     let locationPathName = routeLocation.pathname;
     return (
        <React.Fragment>
-           <HeaderCompounent path={locationPathName}/>
-           <Switch>
-               <Route exact path='/' component={()=><HomeCompounent/>} />
-               <Route path='/login' component={()=>{return <SignUpCompounent/>}} />
-               <Route path='/adherant' component={()=>{return <Adherant/>}} />
-               <Route path='/medecin' component={()=>{return <Medecin/>}}/>
-               {/*<Redirect to="/" />*/}
-           </Switch>
+           <div style={{display : 'flex' , marginTop:'4rem'}} >
+               <HeaderCompounent path={locationPathName}/>
+               <Switch>
+                   <Route exact path='/' component={()=><HomeCompounent/>} />
+                   <Route path='/login' component={()=>{return <SignUpCompounent/>}} />
+                   <Route path='/adherant' component={()=>{return <Adherant/>}} />
+                   <Route path='/medecin' component={()=>{return <Medecin/>}}/>
+                   {/*<Redirect to="/" />*/}
+               </Switch>
+           </div>
+
        </React.Fragment>
 
     )
