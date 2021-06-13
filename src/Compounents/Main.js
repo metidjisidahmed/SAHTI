@@ -5,6 +5,8 @@ import HomeCompounent from "./Home/HomeCompounent";
 import SignUpCompounent from "./SignUp/SignUpCompounent";
 import {ThemeProvider} from "@material-ui/core/styles";
 import React from "react";
+import Adherant from "./Adherant/AdherantCompounent";
+import Medecin from "./Medecin/MedecinCompounent";
 
 
 export default function Main(props){
@@ -16,6 +18,8 @@ export default function Main(props){
            <Switch>
                <Route exact path='/' component={()=><HomeCompounent/>} />
                <Route path='/login' component={()=>{return <SignUpCompounent/>}} />
+               <Route path='/adherant' component={()=>{return <Adherant/>}} />
+               <Route path='/medecin' component={()=>{return <Medecin/>}}/>
                {/*<Redirect to="/" />*/}
            </Switch>
        </React.Fragment>
