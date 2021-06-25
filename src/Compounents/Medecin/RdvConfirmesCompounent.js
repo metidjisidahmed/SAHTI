@@ -12,10 +12,10 @@ import {
     Toolbar,
     Typography,
     RadioGroup,
-    FormControlLabel,Radio
+    FormControlLabel, Radio, useMediaQuery
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
-import {AddBox, AssignmentTurnedIn, Cached, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
+import {AddBox, AssignmentTurnedIn, Cached, Cancel, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "react-loader-spinner";
 import { tableIcons, tableLang } from '../widgets/TableWidget';
@@ -23,6 +23,7 @@ import {Save , VerifiedUser , ChevronLeft} from "@material-ui/icons";
 import { Drawer , Divider , Hidden} from "@material-ui/core";
 import clsx from 'clsx';
 import moment from "moment";
+import 'moment/locale/fr';
 import {useStylesApp} from "../../GlobalStyle/globalStyle";
 
 
@@ -74,9 +75,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Medecin = (props) => {
+    moment.locale('fr');
     // const dispatch = useDispatch() ;
-    // const vaccinationList= useSelector( state => state.vaccinationList) ;
-    const vaccinationList={  data : [] , loading : false , error : null}
+    // const vaccinationConfirmedList= useSelector( state => state.vaccinationConfirmedList) ;
+    const vaccinationConfirmedList={  data : [] , loading : false , error : null}
     const classes = useStyles() ;
 
     const listExemple = [
@@ -90,7 +92,9 @@ const Medecin = (props) => {
             situation : 'nonAtteint',
             suspects : 'Oui',
             phoneNumber : '0555555555',
-            email : 'sidahmed@gmail.com'
+            email : 'sidahmed@gmail.com',
+            vaccinationConfirmedFullDate : moment().format('LLLL'),
+            medecinName : 'Fernando Torres'
         },
         {
             ord : 2,
@@ -119,68 +123,9 @@ const Medecin = (props) => {
     ];
 
 
-    const submitAddVaccination =() => {
-        // string newDate = moment(currentDate, currentFormatString).format(newFormatString)
-        let toPost=formAddVaccination
-        // if(formAddCoupon['from']){
-        //     toPost={...toPost , from : formAddCoupon['from']}
-        // }
-        // if(formAddCoupon.to){
-        //     toPost={...toPost , to : formAddCoupon.to}
-        // }
-        // if(formAddCoupon.type==="Percentage"){
-        //     toPost={...toPost ,
-        //         percentage: formAddCoupon.percentage,
-        //         maxAmountToReduce : formAddCoupon.maxAmountToReduce
-        //     }
-        // }else if(formAddCoupon.type==="Fixed"){
-        //     toPost={...toPost ,
-        //         minBooking : formAddCoupon.minBooking ,
-        //         amount : formAddCoupon.amount
-        //     }
-        // }
-        console.log('post new coupon' , toPost) ;
-        // setFormAddVaccination({type : 'Percentage'});
-        // setAddVaccinationDialogStatus(false);
-        // dispatch(postCoupon(toPost));
-    };
-    const submitPatchVaccination =(vaccinationId) => {
-        let toPatch= formAddVaccination
-        // if(formAddCoupon.from){
-        //     toPatch={...toPatch , from : formAddCoupon.from}
-        // }
-        // if(formAddCoupon.to){
-        //     toPatch={...toPatch , to : formAddCoupon.to}
-        // }
-        // if(formAddCoupon.type==="Percentage"){
-        //     toPatch={...toPatch ,
-        //         percentage: formAddCoupon.percentage,
-        //         maxAmountToReduce : formAddCoupon.maxAmountToReduce
-        //     }
-        // }else if(formAddCoupon.type==="Fixed"){
-        //     toPatch={...toPatch ,
-        //         minBooking : formAddCoupon.minBooking ,
-        //         amount : formAddCoupon.amount
-        //     }
-        // }
-        console.log('patch old vaccination' , toPatch) ;
-        // console.log('its Id is ',formAddCoupon._id );
-        // setFormAddVaccination({type : 'Percentage'});
-        // setAddVaccinationDialogStatus(false);
-        // setIsModify(false);
-        // dispatch(patchCoupon(toPatch , formAddVaccination._id));
-    };
 
-    const onPatch = (data) => {
-        console.log('patch coupon' , data)
-        // dispatch(patchVaccination(data));
-    } ;
 
-    const onDelete = (data) => {
-        console.log('delete Coupon' , data);
-        // dispatch(deleteCoupon(data[0]._id));
-        setIdDeleteVaccination('');
-    };
+
 
 
     // ord : 1,
@@ -198,12 +143,15 @@ const Medecin = (props) => {
         {field: 'nss' , title: 'NSS' , sorting: false},
         { field: 'nom', title: 'Nom' },
         { field: 'prenom', title: 'Prenom' , sorting : false},
+        {field: 'vaccinationConfirmedFullDate' , title : 'Date de la vaccination' },
         {field : 'age' , title :'Age'  },
         {field : 'etat' , title : 'Etat Courant' , sorting: false , grouping : true},
         {field: 'situation' , title : 'Situation vis-à-vis de la pandémie' },
         {field : 'suspects' , title : 'Entourage suspect ?'},
         {field: 'phoneNumber', title : 'Numero de téléphone'},
-        {field : 'email' , title : 'Email'}
+        {field : 'email' , title : 'Email'},
+
+
     ];
 
 
@@ -215,28 +163,20 @@ const Medecin = (props) => {
         sorting : true
 
     };
-    const handleCloseAddCouponDialog = () => {
-        setAddVaccinationDialogStatus(false);
-        if(isModify){
-            setFormAddVaccination({type : 'Percentage'});
-            setIsModify(false);
-        }
-        setRefresh(refresh + 1);
-    };
 
-    const [isAddVaccinationDialogOpen  , setAddVaccinationDialogStatus]=useState(false);
+
     const [refresh , setRefresh]= useState(0)
-    const [formAddVaccination , setFormAddVaccination]=useState({etat : 'sain' , situation : 'nonAtteint' , suspects : 'Personne 1'});
-    const [idDeleteVaccination , setIdDeleteVaccination]=useState('')
-    const [isModify , setIsModify]=useState(false);
 
+    const [idCancelVaccinationConfirmed , setIdCancelVaccinationConfirmed]=useState('')
+    const [isModify , setIsModify]=useState(false);
+    const isDesktop = useMediaQuery('(min-width:768px)');
     // useEffect(()=>{
     //     dispatch(getCoupon());
     // } , [dispatch , refresh])
     return (
         <React.Fragment>
             <Grid item xs={12} >
-                {vaccinationList?.loading ?(
+                {vaccinationConfirmedList?.loading ?(
                     <Typography align="center">
                         <Loader
                             type="Rings"
@@ -245,7 +185,7 @@ const Medecin = (props) => {
                             width={400}
                         />
                     </Typography>
-                ) : vaccinationList?.error ? (
+                ) : vaccinationConfirmedList?.error ? (
                     <Typography variant="h2" color="error" align="center">
                         <Loader
                             type="Rings"
@@ -253,13 +193,13 @@ const Medecin = (props) => {
                             height={400}
                             width={400}
                         />
-                        { vaccinationList?.error.message }
+                        { vaccinationConfirmedList?.error.message }
                     </Typography>
                 ) : (
-                    <Paper className={classes.card_paper} variant="elevation" elevation={10}>
+                    <Paper className={classes.card_paper} variant="elevation" elevation={10} style={isDesktop ? { width : '90vw'} : {}} >
 
                         <MaterialTable
-                            title="File d'attente de demandes de vaccination"
+                            title="Liste de vaccinations coinfirmées"
                             icons={tableIcons}
                             columns={columns}
                             data={listExemple}
@@ -271,28 +211,6 @@ const Medecin = (props) => {
                                     icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
                                     isFreeAction: true,
                                     onClick: () => setRefresh(refresh + 1)
-                                },
-                                {
-                                    tooltip: 'Supprimer',
-                                    icon: () => (<DeleteForever fontSize="default" className={classes.icon_button_red} />),
-                                    //here delete riders
-                                    onClick: (event, data) => onDelete(data)
-                                },
-                                {
-                                    tooltip: 'Ajouter',
-                                    icon: () =>  <AddBox fontSize="default"  />,
-                                    isFreeAction: true,
-                                    onClick: () => setAddVaccinationDialogStatus(true)
-                                },
-                                {
-                                    tooltip: 'modifier le Coupon',
-                                    icon: () => (<EditOutlined fontSize="default"  />),
-                                    position : 'row',
-                                    onClick: (event, data) => {
-                                        setIsModify(true);
-                                        setFormAddVaccination(data);
-                                        setAddVaccinationDialogStatus(true) ;
-                                    }
                                 }
                             ]: [
                                 {
@@ -302,9 +220,9 @@ const Medecin = (props) => {
                                     onClick: () => setRefresh(refresh + 1)
                                 },
                                 rowData=>({
-                                    tooltip: "Confirmer le Rendez-vous",
-                                    icon: () =>  <AssignmentTurnedIn fontSize="default" className={classes.icon_button_green} />,
-                                    onClick: () => console.log('Confirmer le rdv'),
+                                    tooltip: "Annuler le Rendez-vous",
+                                    icon: () =>  <Cancel fontSize="default" className={classes.icon_button_red} />,
+                                    onClick: () => console.log('Annuler le rdv'),
                                     hidden : false
                                 }),
                             ]}

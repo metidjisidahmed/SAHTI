@@ -20,9 +20,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import {Tooltip} from "@material-ui/core";
+import {Tooltip, useMediaQuery} from "@material-ui/core";
 import {Link } from 'react-router-dom'
-import {AssignmentTurnedIn, HourglassEmpty} from "@material-ui/icons";
+import {AssignmentTurnedIn, DateRange, HourglassEmpty} from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -100,6 +100,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const isDesktop = useMediaQuery('(min-width:768px)');
 
     return (
         <div className={classes.root}>
@@ -112,7 +113,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
             >
 
                 <Toolbar>
-                    {path==='/medecin' ? (
+                    {path.includes('/medecin') ? (
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
@@ -162,7 +163,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
 
                 </Toolbar>
             </AppBar>
-            { path ==="/medecin" ?
+            { path.includes('/medecin') && ( isDesktop ? true : open) ?
                 <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
@@ -175,17 +176,29 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                         [classes.drawerClose]: !open,
                     }),
                 }}
+                style={{maxWidth :'10vw' }}
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </div>
-                <Divider />
+                    <Divider />
+                    <Tooltip title="Agenda personnelle" placement="right" >
+                        <List>
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin/schedule' selected={path === "/medecin/schedule" || path==="/medecin"}>
+                                <ListItem  key="Agenda personnelle">
+                                    <ListItemIcon><DateRange/>   </ListItemIcon>
+                                    <ListItemText primary="Agenda personnelle" />
+                                </ListItem>
+                            </MenuItem>
+                        </List>
+                    </Tooltip>
+                    <Divider />
                 <List>
                     <Tooltip title="RDV en attente" placement="right" >
                         <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin' selected={path === "/medecin/enAttente" || path==="/medecin"}>
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin/enAttente' selected={path === "/medecin/enAttente" }>
                                 <ListItem  key="RDV en attente">
                                     <ListItemIcon> <HourglassEmpty/></ListItemIcon>
                                     <ListItemText primary="RDV en attente" />
@@ -197,7 +210,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                 <Divider />
                     <Tooltip title="RDV confirmées" placement="right" >
                         <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin' selected={path === "/medecin/confirme"}>
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin/confirme' selected={path === "/medecin/confirme"}>
                                 <ListItem  key="RDV confirmées">
                                     <ListItemIcon><AssignmentTurnedIn/>   </ListItemIcon>
                                     <ListItemText primary="RDV confirmées" />
