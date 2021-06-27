@@ -15,11 +15,12 @@ import {
     FormControlLabel,Radio
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
-import {AddBox, Cached, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
+import {AddBox, Cached, Close, DeleteForever, EditOutlined, PostAdd} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "react-loader-spinner";
 import { tableIcons, tableLang } from '../widgets/TableWidget';
 import {Save} from "@material-ui/icons";
+import AppointmentCard from "../../SubCompounents/AppointmentCard";
 
 
 import moment from "moment";
@@ -226,6 +227,7 @@ function AddVaccinationDialogForm({setFormAddVaccination , formAddVaccination , 
 const Adherant = (props) => {
     // const dispatch = useDispatch() ;
     // const vaccinationList= useSelector( state => state.vaccinationList) ;
+    const user= useSelector( state => state.user) ;
     const vaccinationList={  data : [] , loading : false , error : null}
     const classes = useStyles() ;
 
@@ -349,12 +351,13 @@ const Adherant = (props) => {
     const [idDeleteVaccination , setIdDeleteVaccination]=useState('')
     const [isModify , setIsModify]=useState(false);
 
+
     // useEffect(()=>{
     //     dispatch(getCoupon());
     // } , [dispatch , refresh])
     return (
         <React.Fragment>
-            <Grid item xs={12} >
+            <Grid container xs={12} justify={'center'} alignItems={'center'} style={{height :'90vh'}}>
                 {vaccinationList?.loading ?(
                     <Typography align="center">
                         <Loader
@@ -374,69 +377,79 @@ const Adherant = (props) => {
                         />
                         { vaccinationList?.error.message }
                     </Typography>
+                ) : user.appointment ? (
+                            <Grid item xs={8} >
+                                <Paper className={classes.card_paper} variant="elevation" elevation={10} style={!user.appointment ? {backgroundColor : '#333'}: {} }>
+                                <Grid item xs={12}  >
+                                    <AppointmentCard/>
+
+                                </Grid>
+
+                                {/*<MaterialTable*/}
+                                {/*    title="Demandes de Vaccination"*/}
+                                {/*    icons={tableIcons}*/}
+                                {/*    columns={columns}*/}
+                                {/*    data={listExemple}*/}
+                                {/*    localization={tableLang}*/}
+                                {/*    options={tableOptions}*/}
+                                {/*    actions={props.write ? [*/}
+                                {/*        {*/}
+                                {/*            tooltip: 'Rafrechir les données',*/}
+                                {/*            icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,*/}
+                                {/*            isFreeAction: true,*/}
+                                {/*            onClick: () => setRefresh(refresh + 1)*/}
+                                {/*        },*/}
+                                {/*        {*/}
+                                {/*            tooltip: 'Supprimer',*/}
+                                {/*            icon: () => (<DeleteForever fontSize="default" className={classes.icon_button_red} />),*/}
+                                {/*            //here delete riders*/}
+                                {/*            onClick: (event, data) => onDelete(data)*/}
+                                {/*        },*/}
+                                {/*        {*/}
+                                {/*            tooltip: 'Ajouter',*/}
+                                {/*            icon: () =>  <AddBox fontSize="default"  />,*/}
+                                {/*            isFreeAction: true,*/}
+                                {/*            onClick: () => setAddVaccinationDialogStatus(true)*/}
+                                {/*        },*/}
+                                {/*        {*/}
+                                {/*            tooltip: 'modifier le Coupon',*/}
+                                {/*            icon: () => (<EditOutlined fontSize="default"  />),*/}
+                                {/*            position : 'row',*/}
+                                {/*            onClick: (event, data) => {*/}
+                                {/*                setIsModify(true);*/}
+                                {/*                setFormAddVaccination(data);*/}
+                                {/*                setAddVaccinationDialogStatus(true) ;*/}
+                                {/*            }*/}
+                                {/*        }*/}
+                                {/*    ]: [*/}
+                                {/*        {*/}
+                                {/*            tooltip: 'Rafrechir les données',*/}
+                                {/*            icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,*/}
+                                {/*            isFreeAction: true,*/}
+                                {/*            onClick: () => setRefresh(refresh + 1)*/}
+                                {/*        },*/}
+                                {/*        {*/}
+                                {/*            tooltip: 'Ajouter',*/}
+                                {/*            icon: () =>  <AddBox fontSize="default"  />,*/}
+                                {/*            isFreeAction: true,*/}
+                                {/*            onClick: () => setAddVaccinationDialogStatus(true)*/}
+                                {/*        },*/}
+                                {/*    ]}*/}
+
+                                {/*    // editable={props.write ? {*/}
+                                {/*    //     // onRowAdd: newData => onPost(newData),*/}
+                                {/*    //     // onRowUpdate: (newData, oldData) => onPatch(newData)*/}
+                                {/*    //*/}
+                                {/*    // }: {}}*/}
+                                {/*/>*/}
+                            </Paper>
+                            </Grid>
                 ) : (
-                    <Paper className={classes.card_paper} variant="elevation" elevation={10}>
-
-                        <MaterialTable
-                            title="Demandes de Vaccination"
-                            icons={tableIcons}
-                            columns={columns}
-                            data={listExemple}
-                            localization={tableLang}
-                            options={tableOptions}
-                            actions={props.write ? [
-                                {
-                                    tooltip: 'Rafrechir les données',
-                                    icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
-                                    isFreeAction: true,
-                                    onClick: () => setRefresh(refresh + 1)
-                                },
-                                {
-                                    tooltip: 'Supprimer',
-                                    icon: () => (<DeleteForever fontSize="default" className={classes.icon_button_red} />),
-                                    //here delete riders
-                                    onClick: (event, data) => onDelete(data)
-                                },
-                                {
-                                    tooltip: 'Ajouter',
-                                    icon: () =>  <AddBox fontSize="default"  />,
-                                    isFreeAction: true,
-                                    onClick: () => setAddVaccinationDialogStatus(true)
-                                },
-                                {
-                                    tooltip: 'modifier le Coupon',
-                                    icon: () => (<EditOutlined fontSize="default"  />),
-                                    position : 'row',
-                                    onClick: (event, data) => {
-                                        setIsModify(true);
-                                        setFormAddVaccination(data);
-                                        setAddVaccinationDialogStatus(true) ;
-                                    }
-                                }
-                            ]: [
-                                {
-                                    tooltip: 'Rafrechir les données',
-                                    icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
-                                    isFreeAction: true,
-                                    onClick: () => setRefresh(refresh + 1)
-                                },
-                                {
-                                    tooltip: 'Ajouter',
-                                    icon: () =>  <AddBox fontSize="default"  />,
-                                    isFreeAction: true,
-                                    onClick: () => setAddVaccinationDialogStatus(true)
-                                },
-                            ]}
-
-                            // editable={props.write ? {
-                            //     // onRowAdd: newData => onPost(newData),
-                            //     // onRowUpdate: (newData, oldData) => onPatch(newData)
-                            //
-                            // }: {}}
-                        />
-                    </Paper>
+                            <Button onClick={()=>{setAddVaccinationDialogStatus(true) }}  startIcon={<PostAdd />} disabled={false}    size="large" style={{ backgroundColor : '#329BA6' }} >
+                                Demander un Vaccin
+                            </Button>
                 )
-                }
+                        }
             </Grid>
             <Dialog  open={isAddVaccinationDialogOpen} onClose={handleCloseAddCouponDialog} TransitionComponent={Transition} fullWidth fullScreen>
                 {/* MAIN BAR */}

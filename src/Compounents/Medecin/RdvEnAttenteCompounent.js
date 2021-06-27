@@ -15,7 +15,7 @@ import {
     FormControlLabel, Radio, useMediaQuery
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
-import {AddBox, AssignmentTurnedIn, Cached, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
+import {AddBox, AssignmentTurnedIn, Cached, Cancel, Close, DeleteForever, EditOutlined} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "react-loader-spinner";
 import { tableIcons, tableLang } from '../widgets/TableWidget';
@@ -261,8 +261,7 @@ const RdvenAttente = (props) => {
                         { vaccinationList?.error.message }
                     </Typography>
                 ) : (
-                    <Paper className={classes.card_paper} variant="elevation" elevation={10} style={isDesktop ? {} : {}}>
-
+                    <Paper className={classes.card_paper} variant="elevation" elevation={10} style={isDesktop ? { width : '90vw'} : {marginLeft : '-0.1rem', marginRight : '-0.1rem' , width : '90vw'}}>
                         <MaterialTable
                             title="File d'attente de demandes de vaccination"
                             icons={tableIcons}
@@ -270,42 +269,19 @@ const RdvenAttente = (props) => {
                             data={listExemple}
                             localization={tableLang}
                             options={tableOptions}
-                            actions={props.write ? [
+                            actions={[
                                 {
                                     tooltip: 'Rafrechir les données',
                                     icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
                                     isFreeAction: true,
                                     onClick: () => setRefresh(refresh + 1)
                                 },
-                                {
-                                    tooltip: 'Supprimer',
-                                    icon: () => (<DeleteForever fontSize="default" className={classes.icon_button_red} />),
-                                    //here delete riders
-                                    onClick: (event, data) => onDelete(data)
-                                },
-                                {
-                                    tooltip: 'Ajouter',
-                                    icon: () =>  <AddBox fontSize="default"  />,
-                                    isFreeAction: true,
-                                    onClick: () => setAddVaccinationDialogStatus(true)
-                                },
-                                {
-                                    tooltip: 'modifier le Coupon',
-                                    icon: () => (<EditOutlined fontSize="default"  />),
-                                    position : 'row',
-                                    onClick: (event, data) => {
-                                        setIsModify(true);
-                                        setFormAddVaccination(data);
-                                        setAddVaccinationDialogStatus(true) ;
-                                    }
-                                }
-                            ]: [
-                                {
-                                    tooltip: 'Rafrechir les données',
-                                    icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
-                                    isFreeAction: true,
-                                    onClick: () => setRefresh(refresh + 1)
-                                },
+                                rowData=>({
+                                    tooltip: "Annuler le Rendez-vous",
+                                    icon: () =>  <Cancel fontSize="default" className={classes.icon_button_red} />,
+                                    onClick: () => console.log('Annuler le rdv'),
+                                    hidden : false
+                                }),
                                 rowData=>({
                                     tooltip: "Confirmer le Rendez-vous",
                                     icon: () =>  <AssignmentTurnedIn fontSize="default" className={classes.icon_button_green} />,

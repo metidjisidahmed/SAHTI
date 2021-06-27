@@ -267,7 +267,7 @@ const makeTodayAppointment = (startDate, endDate) => {
     };
 };
 
-export default appointments.map(({ startDate, endDate, ...restArgs }) => {
+const initialappointementsArr= appointments.map(({ startDate, endDate, ...restArgs }) => {
     const result = {
         ...makeTodayAppointment(startDate, endDate),
         ...restArgs,
@@ -276,3 +276,19 @@ export default appointments.map(({ startDate, endDate, ...restArgs }) => {
     if (date > 31) date = 1;
     return result;
 });
+
+let initialState={
+    loading : false ,
+    error : false ,
+    data : initialappointementsArr
+}
+
+export default function appointmentReducer (state = initialState, action) {
+
+    switch (action.type) {
+        default:
+            return state
+    }
+
+}
+

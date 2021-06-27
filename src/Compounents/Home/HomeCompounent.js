@@ -1,7 +1,10 @@
 import logo from "../../logo.svg";
+import {useSelector} from "react-redux";
 
 
 export default function HomeCompounent(props){
+    const appointments=useSelector(state => state.appointments) ;
+    console.log('Appointments Reducer = ', appointments);
     return (
         <div >
             <header className="App-header">

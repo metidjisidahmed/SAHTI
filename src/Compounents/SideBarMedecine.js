@@ -23,6 +23,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {Tooltip, useMediaQuery} from "@material-ui/core";
 import {Link } from 'react-router-dom'
 import {AssignmentTurnedIn, DateRange, HourglassEmpty} from "@material-ui/icons";
+import {useSelector} from "react-redux";
 
 const drawerWidth = 240;
 
@@ -92,6 +93,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const user = useSelector( state => state.user);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -113,7 +115,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
             >
 
                 <Toolbar>
-                    {path.includes('/medecin') ? (
+                    {path.includes('/medecin') && user.data?.accountType==='Medecin'  ? (
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
@@ -163,7 +165,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
 
                 </Toolbar>
             </AppBar>
-            { path.includes('/medecin') && ( isDesktop ? true : open) ?
+            { path.includes('/medecin') &&  user.data?.accountType==='Medecin'  &&( isDesktop ? true : open) ?
                 <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {

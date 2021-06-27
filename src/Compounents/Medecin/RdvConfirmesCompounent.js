@@ -218,13 +218,7 @@ const Medecin = (props) => {
                                     icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
                                     isFreeAction: true,
                                     onClick: () => setRefresh(refresh + 1)
-                                },
-                                rowData=>({
-                                    tooltip: "Annuler le Rendez-vous",
-                                    icon: () =>  <Cancel fontSize="default" className={classes.icon_button_red} />,
-                                    onClick: () => console.log('Annuler le rdv'),
-                                    hidden : false
-                                }),
+                                }
                             ]}
 
                             // editable={props.write ? {
