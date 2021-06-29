@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
-import appointmentsReducer from "./appointmentsReducer";
+import medecinSchedule from "./medecinSchedule";
 import userReducer from "./userReducer";
 import accountsReducer from './accountsReducer'
+import vaccinationListReducer from "./vaccinationListReducer";
 
 
 export default combineReducers({
-    appointments: appointmentsReducer ,
+    medecinSchedule: medecinSchedule ,
     user : userReducer,
-    accounts : accountsReducer
+    accounts : accountsReducer,
+    vaccinationListReducer : vaccinationListReducer
 
 })

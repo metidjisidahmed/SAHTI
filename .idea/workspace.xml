@@ -3,19 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="7add7820-c722-4d92-a889-55e2d1f7533a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/Adherant/AdherantCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Adherant/AdherantCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Home/HomeCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Home/HomeCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvConfirmesCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvConfirmesCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/appointmentsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/appointmentsReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SubCompounents/AppointmentCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubCompounents/AppointmentCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/appointmentsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/medecinSchedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/userReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +57,8 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -77,7 +79,12 @@
       <workItem from="1623815948626" duration="1179000" />
       <workItem from="1624518807160" duration="12012000" />
       <workItem from="1624721028323" duration="5952000" />
-      <workItem from="1624788529299" duration="9815000" />
+      <workItem from="1624788529299" duration="10307000" />
+      <workItem from="1624831506565" duration="182000" />
+      <workItem from="1624831751737" duration="9157000" />
+      <workItem from="1624851202561" duration="7662000" />
+      <workItem from="1624915239212" duration="4709000" />
+      <workItem from="1624929356562" duration="18678000" />
     </task>
     <servers />
   </component>

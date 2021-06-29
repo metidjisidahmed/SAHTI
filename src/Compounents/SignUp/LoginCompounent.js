@@ -70,6 +70,7 @@ export default function LoginCompounent() {
     const dispatch = useDispatch();
     const [formData , setFormData]=useState({ email : '' , password : ''})
     const user = useSelector( state => state.user);
+    const accounts=useSelector(state=>state.accounts)
     const fetchLoginUser=(formData)=>(dispatch , getState )=>{
         dispatch(loginUserLoading());
         wait(1000)
@@ -80,10 +81,15 @@ export default function LoginCompounent() {
                 if(theUser){
                     if(formData.password==theUser.password){
                         dispatch(loginUser(theUser));
-                        wait(100).then(()=>history.push('/adherant'));
+                        localStorage.setItem('accounts' ,JSON.stringify(accounts.data) );
+                        wait(100).then(()=>history.push('/'+theUser.accountType));
+                    }else{
+                        dispatch(loginUserError('Le Mot de passe est incorrecte !'));
                     }
+                }else{
+                    dispatch(loginUserError("il n'existe aucun utilisateur avec ce mail"));
                 }
-                // theUser ? (formData.password==theUser.password ?  : dispatch(loginUserError('Le Mot de passe est incorrecte !'))) : dispatch(loginUserError("il n'existe aucun utilisateur avec ce mail"));
+
             })
             .catch(err=>dispatch(loginUserError(err)))
 

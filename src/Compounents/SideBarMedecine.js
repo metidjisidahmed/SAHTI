@@ -21,9 +21,12 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Tooltip, useMediaQuery} from "@material-ui/core";
-import {Link } from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {AssignmentTurnedIn, DateRange, HourglassEmpty} from "@material-ui/icons";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutUser} from "../redux/actions";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const drawerWidth = 240;
 
@@ -94,6 +97,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const user = useSelector( state => state.user);
+    const dispatch=useDispatch();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -102,8 +106,8 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const history= useHistory();
     const isDesktop = useMediaQuery('(min-width:768px)');
-
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -115,7 +119,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
             >
 
                 <Toolbar>
-                    {path.includes('/medecin') && user.data?.accountType==='Medecin'  ? (
+                    {path.includes('/Medecin') && user.data?.accountType==='Medecin'  ? (
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
@@ -132,40 +136,52 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                     <Typography variant="h6" noWrap style={{flexGrow :1}}>
                         Mini variant drawer
                     </Typography>
-                    <div>
-                        <IconButton
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleMenu}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={accountOpen}
-                            onClose={handleClose}
-                            style={{marginTop : '2rem'}}
-                        >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                        </Menu>
-                    </div>
+                    {
+                        user.data && (
+                            <div>
+                                <IconButton
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleMenu}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={accountOpen}
+                                    onClose={handleClose}
+                                    style={{marginTop : '2rem'}}
+                                >
+                                    <MenuItem onClick={()=>{dispatch(logoutUser()); history.push('/')}}>Se deconnecter</MenuItem>
+                                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                                </Menu>
+                            </div>
+                        )
+                    }
 
+                    {   !user.data && path==='/' && (
+                        <div style={{marginLeft : 'auto'  , display :'flex' , justifyContent :'center'}} >
+                            <Link to={'/signup'} style={{textDecoration : 'none'}}><Button size="large" variant="outlined" style={{marginRight  : '0.5rem'}}>Sign Up</Button></Link>
+                            <Link to={'/login'} style={{textDecoration : 'none'}}><Button size="large" variant="outlined" >Login</Button></Link>
+                        </div>
+                    )
+                    }
                 </Toolbar>
+
             </AppBar>
-            { path.includes('/medecin') &&  user.data?.accountType==='Medecin'  &&( isDesktop ? true : open) ?
+            { path.includes('/Medecin') &&  user.data?.accountType==='Medecin'  &&( isDesktop ? true : open) ?
                 <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
@@ -188,7 +204,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                     <Divider />
                     <Tooltip title="Agenda personnelle" placement="right" >
                         <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin/schedule' selected={path === "/medecin/schedule" || path==="/medecin"}>
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Medecin/schedule' selected={path === "/Medecin/schedule" || path==="/Medecin"}>
                                 <ListItem  key="Agenda personnelle">
                                     <ListItemIcon><DateRange/>   </ListItemIcon>
                                     <ListItemText primary="Agenda personnelle" />
@@ -200,7 +216,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                 <List>
                     <Tooltip title="RDV en attente" placement="right" >
                         <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin/enAttente' selected={path === "/medecin/enAttente" }>
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Medecin/enAttente' selected={path === "/Medecin/enAttente" }>
                                 <ListItem  key="RDV en attente">
                                     <ListItemIcon> <HourglassEmpty/></ListItemIcon>
                                     <ListItemText primary="RDV en attente" />
@@ -212,7 +228,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                 <Divider />
                     <Tooltip title="RDV confirmées" placement="right" >
                         <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/medecin/confirme' selected={path === "/medecin/confirme"}>
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Medecin/confirme' selected={path === "/Medecin/confirme"}>
                                 <ListItem  key="RDV confirmées">
                                     <ListItemIcon><AssignmentTurnedIn/>   </ListItemIcon>
                                     <ListItemText primary="RDV confirmées" />

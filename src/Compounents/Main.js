@@ -5,17 +5,17 @@ import HomeCompounent from "./Home/HomeCompounent";
 import LoginCompounent from "./SignUp/LoginCompounent";
 import {ThemeProvider} from "@material-ui/core/styles";
 import React, {useState} from "react";
-import Adherant from "./Adherant/AdherantCompounent";
 import Medecin from "./Medecin/RdvEnAttenteCompounent";
 import RdvConfirmesCompounent from "./Medecin/RdvConfirmesCompounent";
 import RdvEnAttenteCompounent from "./Medecin/RdvEnAttenteCompounent";
 import ScheduleMedecin from "./Medecin/ScheduleMedecinCompounent";
 import Paper from "@material-ui/core/Paper";
 import {Appointments, Scheduler, WeekView} from "@devexpress/dx-react-scheduler-material-ui";
-import appointments from "../redux/reducers/appointmentsReducer";
+import appointments from "../redux/reducers/medecinSchedule";
 import {useDispatch, useSelector} from "react-redux";
 import SignUpCompounent from "./SignUp/SignUpCompounent";
 import NotFound from "./NotFound";
+import AdherantCompounent from "./Adherant/AdherantCompounent";
 
 
 export default function Main(props){
@@ -38,14 +38,14 @@ export default function Main(props){
                            </React.Fragment>
 
                        ) : user.data.accountType==='Adherant' ? (
-                           <Route path='/adherant' component={()=>{return <Adherant/>}} />
+                           <Route path='/Adherant' component={()=>{return <AdherantCompounent/>}} />
 
                        ) : user.data.accountType==='Medecin' ? (
                            <React.Fragment>
-                               <Route exact path='/medecin' component={()=>{return <ScheduleMedecin/>}}/>
-                               <Route path='/medecin/enAttente' component={()=>{return <RdvEnAttenteCompounent/>}}/>
-                               <Route path='/medecin/confirme' component={()=>{return <RdvConfirmesCompounent/>}}/>
-                               <Route path='/medecin/schedule' component={()=>{return <ScheduleMedecin/>}}/>
+                               <Route exact path='/Medecin' component={()=>{return <ScheduleMedecin/>}}/>
+                               <Route path='/Medecin/enAttente' component={()=>{return <RdvEnAttenteCompounent/>}}/>
+                               <Route path='/Medecin/confirme' component={()=>{return <RdvConfirmesCompounent/>}}/>
+                               <Route path='/Medecin/schedule' component={()=>{return <ScheduleMedecin/>}}/>
                            </React.Fragment>
 
                        ) : null

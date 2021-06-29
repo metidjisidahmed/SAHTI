@@ -12,7 +12,7 @@ import {
     Toolbar,
     Typography,
     RadioGroup,
-    FormControlLabel,Radio
+    FormControlLabel, Radio, useMediaQuery
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import {AddBox, Cached, Close, DeleteForever, EditOutlined, PostAdd} from '@material-ui/icons';
@@ -21,6 +21,7 @@ import Loader from "react-loader-spinner";
 import { tableIcons, tableLang } from '../widgets/TableWidget';
 import {Save} from "@material-ui/icons";
 import AppointmentCard from "../../SubCompounents/AppointmentCard";
+import {fetchAddVaccinationList} from "../../redux/actions";
 
 
 import moment from "moment";
@@ -160,19 +161,18 @@ function AddVaccinationDialogForm({setFormAddVaccination , formAddVaccination , 
                             <Grid item xs={12} sm={6}>
 
                                 <FormControl variant="filled" className={classes.formControl}>
-                                    <InputLabel htmlFor="situation">Entourage suspect</InputLabel>
+                                    <InputLabel htmlFor="suspects">Entourage suspect</InputLabel>
                                     <Select
                                         onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
                                         native
                                         defaultValue={isModify ? formAddVaccination.suspects : ''}
-                                        //onChange={handleChange}
                                         inputProps={{
                                             name: 'suspects',
                                             id: 'suspects',
                                         }}
                                     >
-                                        <option key="ancienPorteur" value="ancienPorteur" >Personne 1</option>
-                                        <option key="nonAtteint" value="nonAtteint" >Personne 2</option>
+                                        <option key="ancienPorteur" value={true} >Oui</option>
+                                        <option key="nonAtteint" value={false} >Non</option>
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -193,20 +193,20 @@ function AddVaccinationDialogForm({setFormAddVaccination , formAddVaccination , 
 
                             </Grid>
                             {/*Email*/}
-                            <Grid item xs={12} sm={6} >
-                                <TextField
+                            {/*<Grid item xs={12} sm={6} >*/}
+                            {/*    <TextField*/}
 
-                                    onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,[event.target.name] : event.target.value } })}
-                                    defaultValue={isModify ? formAddVaccination.email : ''}
-                                    name="email"
-                                    id="email"
-                                    label="Email"
-                                    variant="filled"
-                                    required
-                                    fullWidth
-                                />
+                            {/*        onChange={(event)=>setFormAddVaccination(oldState=>{return {...oldState ,[event.target.name] : event.target.value } })}*/}
+                            {/*        defaultValue={isModify ? formAddVaccination.email : ''}*/}
+                            {/*        name="email"*/}
+                            {/*        id="email"*/}
+                            {/*        label="Email"*/}
+                            {/*        variant="filled"*/}
+                            {/*        required*/}
+                            {/*        fullWidth*/}
+                            {/*    />*/}
 
-                            </Grid>
+                            {/*</Grid>*/}
 
                             <Grid item xs={12}  >
                                 <Button  startIcon={<Save />} disabled={!(formAddVaccination.age && formAddVaccination.etat && formAddVaccination.situation && formAddVaccination.suspects  && (formAddVaccination.phoneNumber || formAddVaccination.email) ) } onClick={()=>!isModify ? submitAddVaccination() : submitPatchVaccination()}   color="primary" variant="outlined" size="large" style={{fontWeight : 'bold'}} >
@@ -230,6 +230,7 @@ const Adherant = (props) => {
     const user= useSelector( state => state.user) ;
     const vaccinationList={  data : [] , loading : false , error : null}
     const classes = useStyles() ;
+    const dispatch =useDispatch();
 
     const listExemple = [
         {
@@ -258,6 +259,7 @@ const Adherant = (props) => {
     const submitAddVaccination =() => {
         // string newDate = moment(currentDate, currentFormatString).format(newFormatString)
         let toPost=formAddVaccination
+        dispatch(fetchAddVaccinationList(toPost));
         // if(formAddCoupon['from']){
         //     toPost={...toPost , from : formAddCoupon['from']}
         // }
@@ -275,13 +277,13 @@ const Adherant = (props) => {
         //         amount : formAddCoupon.amount
         //     }
         // }
-        console.log('post new coupon' , toPost) ;
+        console.log('post new vaccination' , toPost) ;
         // setFormAddVaccination({type : 'Percentage'});
         // setAddVaccinationDialogStatus(false);
         // dispatch(postCoupon(toPost));
     };
     const submitPatchVaccination =(vaccinationId) => {
-        let toPatch= formAddVaccination
+        let toPatch= formAddVaccination;
         // if(formAddCoupon.from){
         //     toPatch={...toPatch , from : formAddCoupon.from}
         // }
@@ -347,10 +349,10 @@ const Adherant = (props) => {
 
     const [isAddVaccinationDialogOpen  , setAddVaccinationDialogStatus]=useState(false);
     const [refresh , setRefresh]= useState(0)
-    const [formAddVaccination , setFormAddVaccination]=useState({etat : 'sain' , situation : 'nonAtteint' , suspects : 'Personne 1'});
+    const [formAddVaccination , setFormAddVaccination]=useState({etat : 'sain' , situation : 'nonAtteint' , suspects : true});
     const [idDeleteVaccination , setIdDeleteVaccination]=useState('')
     const [isModify , setIsModify]=useState(false);
-
+    const isDesktop = useMediaQuery('(min-width:768px)');
 
     // useEffect(()=>{
     //     dispatch(getCoupon());
@@ -377,8 +379,8 @@ const Adherant = (props) => {
                         />
                         { vaccinationList?.error.message }
                     </Typography>
-                ) : user.appointment ? (
-                            <Grid item xs={8} >
+                ) : user.data.appointment ? (
+                            <Grid item xs={ isDesktop ? 4 : 8} >
                                 <Paper className={classes.card_paper} variant="elevation" elevation={10} style={!user.appointment ? {backgroundColor : '#333'}: {} }>
                                 <Grid item xs={12}  >
                                     <AppointmentCard/>
@@ -464,7 +466,7 @@ const Adherant = (props) => {
                     </Toolbar>
                 </AppBar>
 
-                <AddVaccinationDialogForm isModify={isModify} submitAddVaccination={submitAddVaccination} submitPatchVaccination={submitPatchVaccination()} setFormAddVaccination={setFormAddVaccination} formAddVaccination={formAddVaccination} />
+                <AddVaccinationDialogForm isModify={isModify} submitAddVaccination={submitAddVaccination} submitPatchVaccination={submitPatchVaccination} setFormAddVaccination={setFormAddVaccination} formAddVaccination={formAddVaccination} />
 
                 {/*<div className={classes.tab_appBar_dialog}>*/}
                 {/*    /!* TABS*!/*/}

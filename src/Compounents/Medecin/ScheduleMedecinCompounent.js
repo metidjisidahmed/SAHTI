@@ -5,18 +5,19 @@ import {
     Scheduler,
     WeekView,
     Appointments,
+    MonthView
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import {useMediaQuery} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
 const ScheduleMedecin = (props) =>  {
-    const appointments =useSelector(state => state.appointments) ;
+    const user =useSelector(state => state.user) ;
     const isDesktop = useMediaQuery('(min-width:768px)');
     return(
         <Paper style={ !isDesktop ?{} :{ } }>
-            <Scheduler data={appointments.data} height={'100%'}>
-                <WeekView startDayHour={9} endDayHour={17}/>
+            <Scheduler data={user.data.appointment} height={'100%'}>
+                <WeekView startDayHour={8} endDayHour={16}/>
                 <Appointments/>
             </Scheduler>
         </Paper>
