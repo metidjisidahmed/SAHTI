@@ -24,6 +24,7 @@ import { Drawer , Divider , Hidden} from "@material-ui/core";
 import clsx from 'clsx';
 import moment from "moment";
 import {useStylesApp} from "../../GlobalStyle/globalStyle";
+import {fetchConfirmVaccination} from "../../redux/actions";
 
 
 /* Dialog Transition animation */
@@ -75,8 +76,9 @@ const useStyles = makeStyles((theme) => ({
 
 const RdvenAttente = (props) => {
     // const dispatch = useDispatch() ;
-    // const vaccinationList= useSelector( state => state.vaccinationList) ;
-    const vaccinationList={  data : [] , loading : false , error : null}
+    const vaccinationList= useSelector( state => state.vaccinationList) ;
+    const user= useSelector(state=>state.user);
+    // const vaccinationList={  data : [] , loading : false , error : null}
     const classes = useStyles() ;
 
     const listExemple = [
@@ -200,8 +202,8 @@ const RdvenAttente = (props) => {
         {field: 'nss' , title: 'NSS' , sorting: false},
         { field: 'nom', title: 'Nom' },
         { field: 'prenom', title: 'Prenom' , sorting : false},
-        {field: 'vaccinationConfirmedDate' , title : 'Date de la vaccination' },
-        {field: 'vaccinationConfirmedHour' , title : "L'heure de la vaccination" },
+        {field: 'vaccinationDate' , title : 'Date de la vaccination' },
+        {field: 'vaccinationHour' , title : "L'heure de la vaccination" },
         {field : 'age' , title :'Age'  },
         {field : 'etat' , title : 'Etat Courant' , sorting: false , grouping : true},
         {field: 'situation' , title : 'Situation vis-à-vis de la pandémie' },
@@ -234,6 +236,7 @@ const RdvenAttente = (props) => {
     const [idDeleteVaccination , setIdDeleteVaccination]=useState('')
     const [isModify , setIsModify]=useState(false);
     const isDesktop = useMediaQuery('(min-width:768px)');
+    const dispatch = useDispatch();
 
     // useEffect(()=>{
     //     dispatch(getCoupon());
@@ -241,11 +244,11 @@ const RdvenAttente = (props) => {
     return (
         <React.Fragment>
             <Grid item xs={12} >
-                {vaccinationList?.loading ?(
+                {vaccinationList?.loadingEnAttente ?(
                     <Typography align="center">
                         <Loader
                             type="Rings"
-                            color="#ffdd00"
+                            color="#333"
                             height={400}
                             width={400}
                         />
@@ -266,7 +269,7 @@ const RdvenAttente = (props) => {
                             title="File d'attente de demandes de vaccination"
                             icons={tableIcons}
                             columns={columns}
-                            data={listExemple}
+                            data={vaccinationList.data.filter(vaccination=>{ console.log('Vaccination =' , vaccination , 'User =' , user.id); return  (vaccination.medecinId ===user.data.id  && !vaccination.confirmed && !vaccination.rejected)})}
                             localization={tableLang}
                             options={tableOptions}
                             actions={[
@@ -285,7 +288,7 @@ const RdvenAttente = (props) => {
                                 rowData=>({
                                     tooltip: "Confirmer le Rendez-vous",
                                     icon: () =>  <AssignmentTurnedIn fontSize="default" className={classes.icon_button_green} />,
-                                    onClick: () => console.log('Confirmer le rdv'),
+                                    onClick: () => dispatch(fetchConfirmVaccination(rowData.id)),
                                     hidden : false
                                 }),
                             ]}

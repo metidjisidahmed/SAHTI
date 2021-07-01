@@ -104,7 +104,7 @@ export const fetchAddVaccinationList=(vaccinationToAdd)=>(dispatch , getState)=>
                     console.log('FINAL RDV =', vaccinationUser);
                 } else {
                     // if tomorrow isn't a weekend
-                    if (latestEarliestRdv.getDay() !== 5) {
+                    if (latestEarliestRdv.getDay() !== 4) {
                         let startDate = new Date(latestEarliestRdv.startDate.getTime());
                         startDate.setDate(startDate.getDate() + 1);
                         startDate.setHours(8);
@@ -130,7 +130,7 @@ export const fetchAddVaccinationList=(vaccinationToAdd)=>(dispatch , getState)=>
                 // if the latestearlies rdv isn't at  16h ( the end of the day )
                 let now=new Date();
                 let startDate=new Date(now.getTime());
-                now.getDay() !== 5  ? startDate.setDate(now.getDate()+1) : startDate.setDate(now.getDate()+3);
+                now.getDay() !== 4  ? startDate.setDate(now.getDate()+1) : startDate.setDate(now.getDate()+3);
                 startDate.setHours(8);
                 startDate.setMinutes(0);
                 let endDate=new Date(startDate.getTime());
@@ -155,5 +155,55 @@ export const fetchAddVaccinationList=(vaccinationToAdd)=>(dispatch , getState)=>
                 location: getState().user.data.email,
             }
             dispatch(addVaccinationList(vaccinationUser , rdvMedecinSchedule , getState().user.data));
+        });
+}
+
+const confirmVaccination=(vaccinationToConfirmId)=>{
+    return {
+        type : ActionTypes.VACCINATION_CONFIRMED,
+        payload : vaccinationToConfirmId
+    }
+}
+
+const rdvEnAttenteLoading=()=>{
+    return {
+        type : ActionTypes.RDV_EN_ATTENTE_LOADING
+    }
+}
+
+const rdvConfirmedLoading=()=>{
+    return {
+        type : ActionTypes.RDV_CONFIRMED_LOADING
+    }
+}
+
+export const fetchConfirmVaccination = (vaccinationToConfirmId)=>(dispatch)=>{
+    dispatch(rdvConfirmedLoading());
+    dispatch(rdvEnAttenteLoading())
+    wait(1000)
+        .then(()=>{
+            dispatch(confirmVaccination(vaccinationToConfirmId))
+        })
+}
+
+const signUpUserLoading=()=>{
+    return {
+        type : ActionTypes.SIGN_UP_USER_LOADING
+    }
+}
+
+const signUpUser=(signUpUserForm)=>{
+    return {
+        type : ActionTypes.SIGN_UP_USER,
+        payload : signUpUserForm
+
+    }
+}
+
+export const fetchSignUpUser=(signUpUserForm)=>(dispatch)=>{
+    dispatch(signUpUserLoading());
+    wait(1000)
+        .then(()=>{
+            dispatch(signUpUser(signUpUserForm));
         });
 }

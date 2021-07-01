@@ -1,5 +1,5 @@
 import {initialScheduleArr} from "./medecinSchedule";
-import {ADD_VACCINATION} from "../types";
+import {ADD_VACCINATION, SIGN_UP_USER} from "../types";
 
 
 const rdvsmedecin2Test=[...initialScheduleArr ,{
@@ -35,6 +35,7 @@ const initialState = {
     data : [
         {
             id : 1,
+            matricule : '123456',
             userName : 'Medecin 1',
             email : 'is_metidji1@medecin.dz',
             password : 'zyraveigar',
@@ -43,6 +44,7 @@ const initialState = {
         },
         {
             id : 2,
+            matricule : '12345',
             userName : 'Medecin 2',
             email : 'is_metidji2@medecin.dz',
             password : 'zyraveigar',
@@ -53,6 +55,7 @@ const initialState = {
         {
             id : 3,
             userName : 'Medecin 3',
+            matricule : '1234',
             email : 'is_metidji3@medecin.dz',
             password : 'zyraveigar',
             accountType  : 'Medecin',
@@ -60,6 +63,7 @@ const initialState = {
         },
         {
         id : 4,
+        nss :'0123',
         userName : 'Adherant 1',
         email : 'is_metidji1@adherant.dz',
         password : 'cbon',
@@ -68,6 +72,7 @@ const initialState = {
     },
         {
             id : 5,
+            nss :'01234',
             userName : 'Adherant 2',
             email : 'is_metidji2@adherant.dz',
             password : 'cbon',
@@ -76,6 +81,7 @@ const initialState = {
         },
         {
             id : 6,
+            nss :'012345',
             userName : 'Adherant 3',
             email : 'is_metidji3@adherant.dz',
             password : 'cbon',
@@ -84,6 +90,7 @@ const initialState = {
         },
         {
             id : 7,
+            nss :'0123456',
             userName : 'Adherant 4',
             email : 'is_metidji4@adherant.dz',
             password : 'cbon',
@@ -92,6 +99,7 @@ const initialState = {
         },
         {
             id : 8,
+            nss :'01234567',
             userName : 'Adherant 5',
             email : 'is_metidji5@adherant.dz',
             password : 'cbon',
@@ -100,6 +108,7 @@ const initialState = {
         },
         {
             id : 9,
+            nss :'012345678',
             userName : 'Adherant 6',
             email : 'is_metidji6@adherant.dz',
             password : 'cbon',
@@ -127,6 +136,15 @@ export default function accountsReducer (state = initialState, action) {
             return {
                 ...state,
                 data : [...otherUsers , userToVaccinate , medecinWhoVaccinate]
+            }
+        case SIGN_UP_USER:
+            console.log('User to add :' , action.payload);
+            let userToAdd={...action.payload , id : state.data.length+1 , appointment : null , userName : action.payload.name + ' ' + action.payload.prenom};
+            let result=[...state.data].concat(userToAdd);
+            localStorage.setItem('accounts' , JSON.stringify(result) );
+            return {
+                ...state ,
+                data : result
             }
 
         default: return state

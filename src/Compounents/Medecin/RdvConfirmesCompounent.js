@@ -77,8 +77,9 @@ const useStyles = makeStyles((theme) => ({
 const Medecin = (props) => {
     moment.locale('fr');
     // const dispatch = useDispatch() ;
-    // const vaccinationConfirmedList= useSelector( state => state.vaccinationConfirmedList) ;
-    const vaccinationConfirmedList={  data : [] , loading : false , error : null}
+    const vaccinationList= useSelector( state => state.vaccinationList) ;
+    const user= useSelector( state => state.user) ;
+
     const classes = useStyles() ;
 
     const listExemple = [
@@ -143,15 +144,13 @@ const Medecin = (props) => {
         {field: 'nss' , title: 'NSS' , sorting: false},
         { field: 'nom', title: 'Nom' },
         { field: 'prenom', title: 'Prenom' , sorting : false},
-        {field: 'vaccinationConfirmedFullDate' , title : 'Date de la vaccination' },
+        {field: 'vaccinationConfirmedDate' , title : 'Date de la vaccination' },
         {field : 'age' , title :'Age'  },
         {field : 'etat' , title : 'Etat Courant' , sorting: false , grouping : true},
         {field: 'situation' , title : 'Situation vis-à-vis de la pandémie' },
         {field : 'suspects' , title : 'Entourage suspect ?'},
         {field: 'phoneNumber', title : 'Numero de téléphone'},
         {field : 'email' , title : 'Email'},
-
-
     ];
 
 
@@ -176,7 +175,7 @@ const Medecin = (props) => {
     return (
         <React.Fragment>
             <Grid item xs={12} >
-                {vaccinationConfirmedList?.loading ?(
+                {vaccinationList?.loadingConfirmed ?(
                     <Typography align="center">
                         <Loader
                             type="Rings"
@@ -185,7 +184,7 @@ const Medecin = (props) => {
                             width={400}
                         />
                     </Typography>
-                ) : vaccinationConfirmedList?.error ? (
+                ) : vaccinationList?.error ? (
                     <Typography variant="h2" color="error" align="center">
                         <Loader
                             type="Rings"
@@ -193,7 +192,7 @@ const Medecin = (props) => {
                             height={400}
                             width={400}
                         />
-                        { vaccinationConfirmedList?.error.message }
+                        { vaccinationList?.error.message }
                     </Typography>
                 ) : (
                     <Paper className={classes.card_paper} variant="elevation" elevation={10} style={isDesktop ? { width : '90vw'} : {}} >
@@ -202,7 +201,7 @@ const Medecin = (props) => {
                             title="Liste de vaccinations coinfirmées"
                             icons={tableIcons}
                             columns={columns}
-                            data={listExemple}
+                            data={vaccinationList.data.filter(vaccination=>vaccination.medecinId === user.data.id && vaccination.confirmed)}
                             localization={tableLang}
                             options={tableOptions}
                             actions={props.write ? [

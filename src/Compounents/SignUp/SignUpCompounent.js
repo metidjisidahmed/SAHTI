@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {FormControl, InputLabel, Select} from "@material-ui/core";
+import {fetchSignUpUser} from "../../redux/actions";
+import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 function Copyright() {
     return (
@@ -44,10 +48,52 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    card_paper:{
+        padding : "5px" , borderRadius : "5px" , backgroundColor : "#98DED9", margin : '2rem'
+    },
+    icon_button_blue:{
+        color : "cyan"
+    },
+    icon_button_green:{
+        color : "#39e600"
+    },
+    icon_button_red:{
+        color : "#ff3333"
+    },
+    icon_button_yellow :{
+        color : "yellow"
+    },
+    appBar:{
+        position: 'relative',
+        marginBottom : "3rem"
+    },
+    title:{
+        marginLeft: theme.spacing(2),
+        flex: 1,
+    },
+    subTitle:{
+        marginBottom : "2rem"
+    },
+    tab_appBar_dialog : {
+        flexGrow: 1,
+        width: '100%',
+    } ,
+    formControl : {
+        width: '100%',
+    },
+    title_dialog: {
+        marginLeft: theme.spacing(2),
+        flex: 1,
+    }
 }));
 
 export default function SignUpCompounent() {
     const classes = useStyles();
+    const [signUpForm , setSignUpForm]=useState({accountType : 'Adherant'});
+    const [isChecked , setChecked ]=useState(false);
+    const dispatch = useDispatch();
+    const history=useHistory();
+
 
     return (
         <Container component="main" maxWidth="xs" style={{backgroundColor : '#333'}}>
@@ -63,40 +109,88 @@ export default function SignUpCompounent() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
+                                defaultValue={''}
                                 autoComplete="fname"
-                                name="firstName"
+                                name="nom"
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="firstName"
-                                label="First Name"
+                                id="nom"
+                                label="Nom"
                                 autoFocus
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
+                                defaultValue={''}
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
+                                id="prenom"
+                                label="Prenom"
+                                name="prenom"
                                 autoComplete="lname"
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
+                                defaultValue={''}
                                 variant="outlined"
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="L'adresse Email"
                                 name="email"
                                 autoComplete="email"
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={12}>
+                            <FormControl variant="filled" className={classes.formControl}>
+                                <InputLabel htmlFor="accountType">Type de compte</InputLabel>
+                                <Select
+                                    onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
+                                    native
+                                    defaultValue={signUpForm.accountType}                                        //onChange={handleChange}
+                                    inputProps={{
+                                        name: 'accountType',
+                                        id: 'accountType',
+                                    }}
+                                >
+                                    <option key='Adherant' value='Adherant' >Adherant</option>
+                                    <option key='Medecin' value='Medecin' >Medecin</option>
+                                    <option key='Tutelle' value='Tutelle' >Tutelle</option>
+
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} hidden={!(signUpForm.accountType==='Adherant')} >
                             <TextField
+                                onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="nss"
+                                label="Numéro de sécurité social"
+                                id="nss"
+                            />
+                        </Grid>
+                        <Grid item xs={12} hidden={!(signUpForm.accountType==='Medecin')} >
+                            <TextField
+                                onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="matricule"
+                                label="Matricule médical"
+                                id="Matricule médical"
+                            />
+                        </Grid>
+                        <Grid item xs={12} >
+                            <TextField
+                                onChange={(event)=>setSignUpForm(oldState=>{return {...oldState ,  [event.target.name] : event.target.value } })}
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -109,17 +203,19 @@ export default function SignUpCompounent() {
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
+                                control={<Checkbox onChange={()=>setChecked(!isChecked)} checked={isChecked} color="primary" />}
+                                label="J'accepte les termes et les conditions"
                             />
                         </Grid>
                     </Grid>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        // style={signUpForm.nom && signUpForm.prenom && signUpForm.email && signUpForm.password && isChecked && ( ( signUpForm.nss && signUpForm.accountType==="Adherant") || ( signUpForm.matricule && signUpForm.accountType==="Medecin") ) ?  {} : {opacity : '0.2'}}
+                        disabled={! (signUpForm.nom && signUpForm.prenom && signUpForm.email && signUpForm.password && isChecked && ( ( signUpForm.nss && signUpForm.accountType==="Adherant") || ( signUpForm.matricule && signUpForm.accountType==="Medecin") ))}
+                        onClick={()=>{dispatch(fetchSignUpUser(signUpForm)); setTimeout(()=>{history.push('/login')}, 1500) }}
                     >
                         Sign Up
                     </Button>

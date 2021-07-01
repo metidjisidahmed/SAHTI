@@ -3,18 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="7add7820-c722-4d92-a889-55e2d1f7533a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Adherant/AdherantCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Adherant/AdherantCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SubCompounents/AppointmentCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubCompounents/AppointmentCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvConfirmesCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvConfirmesCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/appointmentsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/medecinSchedule.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/userReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/vaccinationListReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/vaccinationListReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,6 +80,7 @@
       <workItem from="1624851202561" duration="7662000" />
       <workItem from="1624915239212" duration="4709000" />
       <workItem from="1624929356562" duration="18678000" />
+      <workItem from="1625070736736" duration="19689000" />
     </task>
     <servers />
   </component>

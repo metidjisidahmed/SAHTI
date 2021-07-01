@@ -9,6 +9,6 @@ export default combineReducers({
     medecinSchedule: medecinSchedule ,
     user : userReducer,
     accounts : accountsReducer,
-    vaccinationListReducer : vaccinationListReducer
+    vaccinationList : vaccinationListReducer
 
 })
