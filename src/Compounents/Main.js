@@ -16,6 +16,9 @@ import {useDispatch, useSelector} from "react-redux";
 import SignUpCompounent from "./SignUp/SignUpCompounent";
 import NotFound from "./NotFound";
 import AdherantCompounent from "./Adherant/AdherantCompounent";
+import AdherantAccounts from "./Tutelle/Accounts/AdherantAccounts";
+import MedecinAccounts from "./Tutelle/Accounts/MedecinAccounts";
+import VaccinationListsCompounent from "./Tutelle/VaccinationListsCompounent";
 
 
 export default function Main(props){
@@ -26,7 +29,7 @@ export default function Main(props){
     return (
        <React.Fragment>
            <div style={locationPathName!=='/signup' ? {display : 'flex' , marginTop:'4rem'} : {display : 'flex' , marginTop:'4rem'} } >
-               {locationPathName==='/signup' || locationPathName==='/login' ? null :  <HeaderCompounent path={locationPathName}/>  }
+               { <HeaderCompounent path={locationPathName}/>  }
 
                <Switch>
                    <Route exact path='/' component={()=><HomeCompounent/>} />
@@ -47,7 +50,14 @@ export default function Main(props){
                                <Route path='/Medecin/confirme' component={()=>{return <RdvConfirmesCompounent/>}}/>
                                <Route path='/Medecin/schedule' component={()=>{return <ScheduleMedecin/>}}/>
                            </React.Fragment>
-
+                       ) : user.data.accountType==='Tutelle' ?(
+                           <React.Fragment>
+                               <Route exact path='/Tutelle' component={()=>{return <AdherantAccounts/>}}/>
+                               <Route exact path='/Tutelle/accounts' component={()=>{return <AdherantAccounts/>}}/>
+                               <Route exact path='/Tutelle/accounts/adherants' component={()=>{return <AdherantAccounts/>}}/>
+                               <Route path='/Tutelle/accounts/medecins' component={()=>{return <MedecinAccounts/>}}/>
+                               <Route path='/Tutelle/vaccinations' component={()=>{return <VaccinationListsCompounent/>}} />
+                           </React.Fragment>
                        ) : null
                    }
                    <Route path="*" component={() => <NotFound/>} />

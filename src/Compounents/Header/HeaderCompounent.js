@@ -17,6 +17,8 @@ import {Link, useLocation} from "react-router-dom"
 import {useStylesApp} from "../../GlobalStyle/globalStyle";
 import {ChevronLeft} from "@material-ui/icons";
 import SideBarMedecine from "../SideBarMedecine";
+import SideBarTutelle from "../SideBarTutelle";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -101,6 +103,9 @@ export default function HeaderCompounent({path}) {
     const [auth, setAuth] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const [anchorElTutelle, setAnchorElTutelle] = React.useState(null);
+    const openTutelle = Boolean(anchorElTutelle);
+    const user= useSelector(state=>state.user);
 
     const handleChange = (event) => {
         setAuth(event.target.checked);
@@ -109,12 +114,18 @@ export default function HeaderCompounent({path}) {
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const handleMenuTutelle = (event) => {
+        setAnchorElTutelle(event.currentTarget);
+    };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleCloseTutelle = () => {
+        setAnchorElTutelle(null);
+    };
     console.log("PATH =", path);
-    if(path==='/login' || path ==='/signup') return null
+    // if(path==='/login' || path ==='/signup') return null
     return (
         <React.Fragment>
                 {/*<div className={classes.root}>*/}
@@ -188,7 +199,11 @@ export default function HeaderCompounent({path}) {
                 {/*        </Toolbar>*/}
                 {/*/!*    </AppBar>*!/*/}
                 {/*</div>*/}
-                <SideBarMedecine path={path} auth={auth} handleMenu={handleMenu} handleClose={handleClose} anchorEl={anchorEl}  accountOpen={open} />
+                {user.data?.accountType!=='Tutelle'?
+                    <SideBarMedecine path={path} auth={auth} handleMenu={handleMenu} handleClose={handleClose} anchorEl={anchorEl}  accountOpen={open} />
+                    :
+                    <SideBarTutelle path={path} auth={auth} handleMenu={handleMenuTutelle} handleClose={handleCloseTutelle} anchorEl={anchorElTutelle} accountOpen={openTutelle} />
+                }
         </React.Fragment>
     );
 }

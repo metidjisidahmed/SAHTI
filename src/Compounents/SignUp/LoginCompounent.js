@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {useDispatch, useSelector} from "react-redux";
 import {loginUserError , loginUser , wait , loginUserLoading} from "../../redux/actions";
 import { useHistory} from "react-router-dom";
+import bigLogo2 from './Asset 7-100 rogné.jpg'
 
 
 
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: `url(${bigLogo2})`,
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -97,7 +98,9 @@ export default function LoginCompounent() {
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
+            <Grid item xs={false} sm={4} md={7} >
+                <img style={{width : '100%' , height : '100%'}} src={bigLogo2}/>
+            </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>

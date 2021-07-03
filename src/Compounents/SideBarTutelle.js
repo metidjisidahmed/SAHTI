@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,14 +20,23 @@ import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import {Tooltip, useMediaQuery} from "@material-ui/core";
+import {Collapse, MenuList, Tooltip, useMediaQuery} from "@material-ui/core";
 import {Link, useHistory} from 'react-router-dom'
-import {AssignmentTurnedIn, DateRange, HourglassEmpty} from "@material-ui/icons";
+import {
+    AccountBox,
+    AssignmentTurnedIn,
+    DateRange,
+    ExpandLess,
+    ExpandMore,
+    HourglassEmpty, PinDrop,
+    SupervisorAccount
+} from "@material-ui/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../redux/actions";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import littleLogo from "./SignUp/bigLogo.png";
+import littleLogo from '../Compounents/SignUp/bigLogo.png';
+
 
 const drawerWidth = 240;
 
@@ -93,7 +102,75 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SideBarMedecine({path , auth , handleClose , handleMenu,anchorEl , accountOpen }) {
+export const AccountListItems = ({pathName ,listItemColor , roles }) => {
+    const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        if(pathName === "/Tutelle" ||pathName === "/Tutelle/accounts" || pathName === "/Tutelle/accounts/adherants" || pathName === "/Tutelle/accounts/medecins" || pathName === "/Tutelle/accounts/tutelle"  ){
+            setOpen(true)
+        }else{
+            setOpen(false)
+        }
+    }, [pathName]);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
+
+
+    return (
+
+        <MenuList>
+            <Tooltip title="Gestion des comptes" placement="right">
+
+                <MenuItem onClick={handleClick}>
+                    <ListItemIcon>
+                        <SupervisorAccount color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Gestion des comptes" className={listItemColor} />
+                    {open ? <ExpandLess color="primary" /> : <ExpandMore color="primary" />}
+                </MenuItem>
+
+            </Tooltip>
+            {/* Collapsing items */}
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <MenuList component="div" disablePadding>
+                    <Tooltip title="Comptes d'adherants" placement="right"  >
+
+                        <MenuItem component={Link} to='/Tutelle/accounts/adherants' selected={pathName === "/Tutelle/accounts/adherants" || pathName==='/Tutelle'}>
+                            <ListItemIcon>
+                                <AccountBox />
+                            </ListItemIcon>
+                            <ListItemText primary="Comptes d'adherants"  />
+                        </MenuItem>
+                    </Tooltip>
+                    <Tooltip title="Comptes de medecins" placement="right"  >
+
+                        <MenuItem component={Link} to='/Tutelle/accounts/medecins' selected={pathName === "/Tutelle/accounts/medecins"}>
+                            <ListItemIcon>
+                                <AccountBox />
+                            </ListItemIcon>
+                            <ListItemText primary="Comptes de medecins"  />
+                        </MenuItem>
+                    </Tooltip>
+                    <Tooltip title="Comptes de la tutelle" placement="right"  >
+
+                        <MenuItem component={Link} to='/Tutelle/accounts/tutelle' selected={pathName === "/Tutelle/accounts/tutelle"}>
+                            <ListItemIcon>
+                                <AccountBox />
+                            </ListItemIcon>
+                            <ListItemText primary="Comptes de la tutelle"  />
+                        </MenuItem>
+                    </Tooltip>
+
+
+                </MenuList>
+
+            </Collapse>
+        </MenuList>
+    )};
+
+export default function SideBarTutelle({path , auth , handleClose , handleMenu,anchorEl , accountOpen }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -117,11 +194,10 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
-                style={{backgroundColor :'#333'}}
             >
 
-                <Toolbar style={(path !='/signup') ?{} : {display :'none'}}>
-                    {path.includes('/Medecin') && user.data?.accountType==='Medecin'  ? (
+                <Toolbar style={{backgroundColor :'#333'}}>
+                    {path.includes('/Tutelle') && user.data?.accountType==='Tutelle'   ? (
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
@@ -135,8 +211,8 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                         </IconButton>
                     ) : null}
 
-                    <Typography variant="h6" noWrap style={(path!=='/login' && path !='/signup') ?{ flexGrow : 1} : {display :'none'}}>
-                        <img style={{marginTop : '5px' ,  height : isDesktop ? '3em' : '3rem', width : isDesktop ? '10em' : '10rem'}} src={littleLogo}/>
+                    <Typography variant="h6" noWrap style={{flexGrow :1}}>
+                        <img style={{marginTop : '5px' ,  height : '3em', width : '10em'}} src={littleLogo}/>
                     </Typography>
                     {
                         user.data && (
@@ -183,63 +259,43 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                 </Toolbar>
 
             </AppBar>
-            { path.includes('/Medecin') &&  user.data?.accountType==='Medecin'  &&( isDesktop ? true : open) ?
+            { isDesktop || open ? (
                 <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
-                    }),
-                }}
-                style={{maxWidth :'10vw' }}
-            >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
-                </div>
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        }),
+                    }}
+                    style={{maxWidth :'10vw' }}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        </IconButton>
+                    </div>
                     <Divider />
-                    <Tooltip title="Agenda personnelle" placement="right" >
+                    <AccountListItems  pathName={path}  listItemColor={classes.list_items} />
+                    <Divider/>
+                    <Tooltip title="Gestion de vaccinations" placement="right" >
                         <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Medecin/schedule' selected={path === "/Medecin/schedule" || path==="/Medecin"}>
-                                <ListItem  key="Agenda personnelle">
+                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Tutelle/vaccinations' selected={path === "/Tutelle/vaccinations"} >
+                                <ListItem  key="Gestion des vaccinations">
                                     <ListItemIcon><DateRange/>   </ListItemIcon>
-                                    <ListItemText primary="Agenda personnelle" />
+                                    <ListItemText primary="Gestion de vaccinations" />
                                 </ListItem>
                             </MenuItem>
                         </List>
                     </Tooltip>
                     <Divider />
-                <List>
-                    <Tooltip title="RDV en attente" placement="right" >
-                        <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Medecin/enAttente' selected={path === "/Medecin/enAttente" }>
-                                <ListItem  key="RDV en attente">
-                                    <ListItemIcon> <HourglassEmpty/></ListItemIcon>
-                                    <ListItemText primary="RDV en attente" />
-                                </ListItem>
-                            </MenuItem>
-                        </List>
-                    </Tooltip>
-                </List>
-                <Divider />
-                    <Tooltip title="RDV confirmées" placement="right" >
-                        <List>
-                            <MenuItem style={{ marginLeft : '-0.8rem'}} component={Link} to='/Medecin/confirme' selected={path === "/Medecin/confirme"}>
-                                <ListItem  key="RDV confirmées">
-                                    <ListItemIcon><AssignmentTurnedIn/>   </ListItemIcon>
-                                    <ListItemText primary="RDV confirmées" />
-                                </ListItem>
-                            </MenuItem>
-                        </List>
-                    </Tooltip>
-            </Drawer> : null }
 
+                </Drawer>
+            ) : null}
         </div>
     );
 }

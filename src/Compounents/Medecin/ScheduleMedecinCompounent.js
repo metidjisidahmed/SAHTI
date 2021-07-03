@@ -15,8 +15,8 @@ const ScheduleMedecin = (props) =>  {
     const user =useSelector(state => state.user) ;
     const isDesktop = useMediaQuery('(min-width:768px)');
     return(
-        <Paper style={ !isDesktop ?{} :{ } }>
-            <Scheduler data={user.data.appointment} height={'100%'}>
+        <Paper >
+            <Scheduler style={!isDesktop ?{} :{marginTop : '2rem' } } data={user.data.appointment} height={'100%'}>
                 <WeekView startDayHour={8} endDayHour={16}/>
                 <Appointments/>
             </Scheduler>

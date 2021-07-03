@@ -1,5 +1,6 @@
 import {initialScheduleArr} from "./medecinSchedule";
-import {ADD_VACCINATION, SIGN_UP_USER} from "../types";
+import {ADD_VACCINATION, SIGN_UP_USER , VACCINATION_CONFIRMED} from "../types";
+import moment from "moment";
 
 
 const rdvsmedecin2Test=[...initialScheduleArr ,{
@@ -114,6 +115,14 @@ const initialState = {
             password : 'cbon',
             accountType  : 'Adherant',
             appointment : null
+        },
+        {
+            id : 10,
+            nss :'012345678',
+            userName : 'Tutelle 1',
+            email : 'is_metidji1@tutelle.dz',
+            password : 'cbon',
+            accountType  : 'Tutelle',
         }
 
 
@@ -122,10 +131,14 @@ const initialState = {
 
 export default function accountsReducer (state = initialState, action) {
     let useless=0;
+    let index;
+    let result;
+
+
     switch(action.type){
         case ADD_VACCINATION :
             let userToVaccinate=state.data.filter(user=>action.payload.user.id===user.id)[0];
-            userToVaccinate.appointment=action.payload.vaccinationUser;
+            userToVaccinate.appointment={...action.payload.vaccinationUser , userId : action.payload.rdvMedecinSchedule.userId};
             let medecinWhoVaccinate=state.data.filter(user=>action.payload.rdvMedecinSchedule.userId ===user.id)[0];
             medecinWhoVaccinate.appointment.push(action.payload.rdvMedecinSchedule);
             console.log('User to vaccinate :' , userToVaccinate);
@@ -140,13 +153,25 @@ export default function accountsReducer (state = initialState, action) {
         case SIGN_UP_USER:
             console.log('User to add :' , action.payload);
             let userToAdd={...action.payload , id : state.data.length+1 , appointment : null , userName : action.payload.name + ' ' + action.payload.prenom};
-            let result=[...state.data].concat(userToAdd);
+            result=[...state.data].concat(userToAdd);
             localStorage.setItem('accounts' , JSON.stringify(result) );
             return {
                 ...state ,
                 data : result
             }
+        case VACCINATION_CONFIRMED :
+            let accountToConfirm=state.data.filter(acc=>acc.email===action.payload.emailVaccinatedUser)[0];
+            index = state.data.indexOf(accountToConfirm);
+            console.log('ACCOUNT TO CONFIRM : ', accountToConfirm);
+            accountToConfirm={...accountToConfirm, appointment : {...accountToConfirm.appointment , confirmed : true} };
+            result=[...state.data];
+            result[index]=accountToConfirm;
+            localStorage.setItem('accounts' , JSON.stringify(result));
+            return {
+                ...state ,
+                data : result
 
+            }
         default: return state
     }
 

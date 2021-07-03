@@ -77,7 +77,7 @@ export const fetchAddVaccinationList=(vaccinationToAdd)=>(dispatch , getState)=>
                         ajouterDemain=true;
                         medecinDemain=medecinAccount;
                     }
-                    console.log('latest rdvs to Medecin : ', medecinAccount.email ,'is :' , latestRdv );
+                    console.log('latest rdvs to Medecin : ', medecinAccount ,'is :' , latestRdv );
                 }
             });
             let vaccinationUser={};
@@ -158,10 +158,13 @@ export const fetchAddVaccinationList=(vaccinationToAdd)=>(dispatch , getState)=>
         });
 }
 
-const confirmVaccination=(vaccinationToConfirmId)=>{
+const confirmVaccination=(vaccinationToConfirmId , emailVaccinatedUser)=>{
     return {
         type : ActionTypes.VACCINATION_CONFIRMED,
-        payload : vaccinationToConfirmId
+        payload : {
+            vaccinationToConfirmId : vaccinationToConfirmId,
+            emailVaccinatedUser : emailVaccinatedUser
+        }
     }
 }
 
@@ -177,12 +180,12 @@ const rdvConfirmedLoading=()=>{
     }
 }
 
-export const fetchConfirmVaccination = (vaccinationToConfirmId)=>(dispatch)=>{
+export const fetchConfirmVaccination = (vaccinationToConfirmId , emailVaccinatedUser)=>(dispatch)=>{
     dispatch(rdvConfirmedLoading());
     dispatch(rdvEnAttenteLoading())
     wait(1000)
         .then(()=>{
-            dispatch(confirmVaccination(vaccinationToConfirmId))
+            dispatch(confirmVaccination(vaccinationToConfirmId , emailVaccinatedUser))
         })
 }
 

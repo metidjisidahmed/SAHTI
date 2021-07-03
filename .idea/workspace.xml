@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7add7820-c722-4d92-a889-55e2d1f7533a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compounents/SignUp/Asset 7-100.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compounents/SignUp/bigLogo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvConfirmesCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvConfirmesCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Header/HeaderCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Header/HeaderCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/vaccinationListReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/vaccinationListReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +47,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Compounents" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/img" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -58,7 +61,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\src\img" />
       <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\src\Compounents" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\src\Compounents\SignUp" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -81,6 +88,12 @@
       <workItem from="1624915239212" duration="4709000" />
       <workItem from="1624929356562" duration="18678000" />
       <workItem from="1625070736736" duration="19689000" />
+      <workItem from="1625141136060" duration="592000" />
+      <workItem from="1625164718246" duration="12286000" />
+      <workItem from="1625185904696" duration="2730000" />
+      <workItem from="1625189373439" duration="1514000" />
+      <workItem from="1625193311060" duration="3426000" />
+      <workItem from="1625198714888" duration="7192000" />
     </task>
     <servers />
   </component>

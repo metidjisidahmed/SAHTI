@@ -56,7 +56,7 @@ export default function vaccinationListReducer (state = initialState, action) {
                 loadingConfirmed: true
             }
         case VACCINATION_CONFIRMED:
-            let vaccinationToConfirm=state.data.filter(vaccination=>vaccination.id===action.payload)[0];
+            let vaccinationToConfirm=state.data.filter(vaccination=>vaccination.id===action.payload.vaccinationToConfirmId)[0];
             index = state.data.indexOf(vaccinationToConfirm);
             vaccinationToConfirm={...vaccinationToConfirm, confirmed : true , vaccinationConfirmedDate : moment().format('llll')};
             result=[...state.data];

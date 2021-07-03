@@ -23,7 +23,7 @@ import {Save , VerifiedUser , ChevronLeft} from "@material-ui/icons";
 import { Drawer , Divider , Hidden} from "@material-ui/core";
 import clsx from 'clsx';
 import moment from "moment";
-import {useStylesApp} from "../../GlobalStyle/globalStyle";
+// import {useStylesApp} from "../../../../GlobalStyle/globalStyle";
 import {fetchConfirmVaccination} from "../../redux/actions";
 
 
@@ -74,10 +74,18 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const RdvenAttente = (props) => {
+const VaccinationListsCompounent = (props) => {
     // const dispatch = useDispatch() ;
-    const vaccinationList= useSelector( state => state.vaccinationList) ;
     const user= useSelector(state=>state.user);
+    const accounts=useSelector(state=>state.accounts);
+    const vaccinationsList=useSelector(state=>state.vaccinationList.data );
+    const vaccinationListFormated=[];
+    vaccinationsList.forEach(vac=>{
+        const adherantvaccinated= accounts.data.filter(acc=>acc.email===vac.email)[0];
+        const medecinWhoVaccinate= accounts.data.filter(acc=>acc.id===vac.medecinId)[0];
+        console.log(' ADHERANT =' , adherantvaccinated , 'MEDECIN =' , medecinWhoVaccinate);
+        vaccinationListFormated.push({...vac , userNameMedecin : medecinWhoVaccinate.userName , userNameAdherant :adherantvaccinated.userName , etat : vac.rejected ? 'Annulée' : vac.confirmed ? 'Confirmée' : 'En Attente' });
+    });
     // const vaccinationList={  data : [] , loading : false , error : null}
     const classes = useStyles() ;
 
@@ -197,19 +205,12 @@ const RdvenAttente = (props) => {
     //     phoneNumber : '0555555555',
     //     email : 'sidahmed@gmail.com'
     const columns = [
-        // { field : 'nss' , title : 'NSS'} ,
-        {field:  'ord' , title : "Ordre" , defaultSort : "asc" },
-        {field: 'nss' , title: 'NSS' , sorting: false},
-        { field: 'nom', title: 'Nom' },
-        { field: 'prenom', title: 'Prenom' , sorting : false},
-        {field: 'vaccinationDate' , title : 'Date de la vaccination' },
-        {field: 'vaccinationHour' , title : "L'heure de la vaccination" },
-        {field : 'age' , title :'Age'  },
-        {field : 'etat' , title : 'Etat Courant' , sorting: false , grouping : true},
-        {field: 'situation' , title : 'Situation vis-à-vis de la pandémie' },
-        {field : 'suspects' , title : 'Entourage suspect ?'},
-        {field: 'phoneNumber', title : 'Numero de téléphone'},
-        {field : 'email' , title : 'Email'}
+        {field: 'userNameMedecin' , title: 'Nom  complet de medecin' },
+        { field: 'userNameAdherant', title: "Nom complet de l'adherant"  },
+        { field: 'vaccinationDate', title: 'Date de vaccination'},
+        {field: 'vaccinationHour' , title : 'Heure de vaccination' , sorting : false  },
+        {field: 'etat' , title : 'Etat'   ,  defaultGroupOrder: 0  },
+        {field: 'vaccinationConfirmedDate' , title : "Date de la confirmation de la vaccination", sorting : false  },
     ];
 
 
@@ -244,7 +245,7 @@ const RdvenAttente = (props) => {
     return (
         <React.Fragment>
             <Grid item xs={12} >
-                {vaccinationList?.loadingEnAttente ?(
+                {false ?(
                     <Typography align="center">
                         <Loader
                             type="Rings"
@@ -253,7 +254,7 @@ const RdvenAttente = (props) => {
                             width={400}
                         />
                     </Typography>
-                ) : vaccinationList?.error ? (
+                ) :false ? (
                     <Typography variant="h2" color="error" align="center">
                         <Loader
                             type="Rings"
@@ -261,7 +262,7 @@ const RdvenAttente = (props) => {
                             height={400}
                             width={400}
                         />
-                        { vaccinationList?.error.message }
+                        { 'error' }
                     </Typography>
                 ) : (
                     <Paper className={classes.card_paper} variant="elevation" elevation={10} style={isDesktop ? { width : '90vw'} : {marginLeft : '-0.1rem', marginRight : '-0.1rem' , width : '90vw'}}>
@@ -269,29 +270,9 @@ const RdvenAttente = (props) => {
                             title="File d'attente de demandes de vaccination"
                             icons={tableIcons}
                             columns={columns}
-                            data={vaccinationList.data.filter(vaccination=>{ console.log('Vaccination =' , vaccination , 'User =' , user.id); return  (vaccination.medecinId ===user.data.id  && !vaccination.confirmed && !vaccination.rejected)})}
+                            data={vaccinationListFormated}
                             localization={tableLang}
                             options={tableOptions}
-                            actions={[
-                                {
-                                    tooltip: 'Rafrechir les données',
-                                    icon: () =>  <Cached fontSize="default" className={classes.icon_button_blue} />,
-                                    isFreeAction: true,
-                                    onClick: () => setRefresh(refresh + 1)
-                                },
-                                rowData=>({
-                                    tooltip: "Annuler le Rendez-vous",
-                                    icon: () =>  <Cancel fontSize="default" className={classes.icon_button_red} />,
-                                    onClick: () => console.log('Annuler le rdv'),
-                                    hidden : false
-                                }),
-                                rowData=>({
-                                    tooltip: "Confirmer le Rendez-vous",
-                                    icon: () =>  <AssignmentTurnedIn fontSize="default" className={classes.icon_button_green} />,
-                                    onClick: () => dispatch(fetchConfirmVaccination(rowData.id , rowData.email)),
-                                    hidden : false
-                                }),
-                            ]}
 
                             // editable={props.write ? {
                             //     // onRowAdd: newData => onPost(newData),
@@ -309,4 +290,4 @@ const RdvenAttente = (props) => {
     )
 } ;
 
-export default RdvenAttente;
+export default VaccinationListsCompounent;
