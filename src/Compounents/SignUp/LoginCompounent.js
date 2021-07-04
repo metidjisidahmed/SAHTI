@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {useDispatch, useSelector} from "react-redux";
 import {loginUserError , loginUser , wait , loginUserLoading} from "../../redux/actions";
-import { useHistory} from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
 import bigLogo2 from './Asset 7-100 rogné.jpg'
 
 
@@ -24,9 +24,9 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
+
+                SAHTI
+            {' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -160,7 +160,7 @@ export default function LoginCompounent() {
                             {/*    </Link>*/}
                             {/*</Grid>*/}
                             <Grid item>
-                                <Link href={'/signup'} variant="body2">
+                                <Link to='/signup' variant="body2" style={{color : '#98DED9'}}>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

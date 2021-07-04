@@ -27,7 +27,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../redux/actions";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import littleLogo from "./SignUp/bigLogo.png";
+import littleLogo from "./SignUp/Asset 10.png";
 
 const drawerWidth = 240;
 
@@ -166,7 +166,7 @@ export default function SideBarMedecine({path , auth , handleClose , handleMenu,
                                     onClose={handleClose}
                                     style={{marginTop : '2rem'}}
                                 >
-                                    <MenuItem onClick={()=>{dispatch(logoutUser()); history.push('/')}}>Se deconnecter</MenuItem>
+                                    <MenuItem onClick={()=>{dispatch(logoutUser()); history.push('/login')}}>Se deconnecter</MenuItem>
                                     <MenuItem onClick={handleClose}>My account</MenuItem>
                                 </Menu>
                             </div>

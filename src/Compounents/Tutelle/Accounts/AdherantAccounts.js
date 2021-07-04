@@ -273,7 +273,7 @@ const AdherantAccounts = (props) => {
                 ) : (
                     <Paper className={classes.card_paper} variant="elevation" elevation={10} style={isDesktop ? { width : '90vw'} : {marginLeft : '-0.1rem', marginRight : '-0.1rem' , width : '90vw'}}>
                         <MaterialTable
-                            title="File d'attente de demandes de vaccination"
+                            title="Tables de comptes d'adherants"
                             icons={tableIcons}
                             columns={columns}
                             data={adherantsFormatedList}

@@ -5,7 +5,8 @@ import {
     Scheduler,
     WeekView,
     Appointments,
-    MonthView
+    MonthView,
+    DayView
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import {useMediaQuery} from "@material-ui/core";
@@ -17,7 +18,7 @@ const ScheduleMedecin = (props) =>  {
     return(
         <Paper >
             <Scheduler style={!isDesktop ?{} :{marginTop : '2rem' } } data={user.data.appointment} height={'100%'}>
-                <WeekView startDayHour={8} endDayHour={16}/>
+                <MonthView  startDayHour={8} endDayHour={16}/>
                 <Appointments/>
             </Scheduler>
         </Paper>

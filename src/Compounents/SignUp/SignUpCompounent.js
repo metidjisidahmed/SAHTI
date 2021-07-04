@@ -161,7 +161,7 @@ export default function SignUpCompounent() {
                                 >
                                     <option key='Adherant' value='Adherant' >Adherant</option>
                                     <option key='Medecin' value='Medecin' >Medecin</option>
-                                    <option key='Tutelle' value='Tutelle' >Tutelle</option>
+                                    {/*<option key='Tutelle' value='Tutelle' >Tutelle</option>*/}
 
                                 </Select>
                             </FormControl>

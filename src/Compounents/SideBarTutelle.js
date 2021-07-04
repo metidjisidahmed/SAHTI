@@ -35,7 +35,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../redux/actions";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import littleLogo from '../Compounents/SignUp/bigLogo.png';
+import littleLogo from '../Compounents/SignUp/Asset 10.png';
 
 
 const drawerWidth = 240;
@@ -153,15 +153,15 @@ export const AccountListItems = ({pathName ,listItemColor , roles }) => {
                             <ListItemText primary="Comptes de medecins"  />
                         </MenuItem>
                     </Tooltip>
-                    <Tooltip title="Comptes de la tutelle" placement="right"  >
+                    {/*<Tooltip title="Comptes de la tutelle" placement="right"  >*/}
 
-                        <MenuItem component={Link} to='/Tutelle/accounts/tutelle' selected={pathName === "/Tutelle/accounts/tutelle"}>
-                            <ListItemIcon>
-                                <AccountBox />
-                            </ListItemIcon>
-                            <ListItemText primary="Comptes de la tutelle"  />
-                        </MenuItem>
-                    </Tooltip>
+                    {/*    <MenuItem component={Link} to='/Tutelle/accounts/tutelle' selected={pathName === "/Tutelle/accounts/tutelle"}>*/}
+                    {/*        <ListItemIcon>*/}
+                    {/*            <AccountBox />*/}
+                    {/*        </ListItemIcon>*/}
+                    {/*        <ListItemText primary="Comptes de la tutelle"  />*/}
+                    {/*    </MenuItem>*/}
+                    {/*</Tooltip>*/}
 
 
                 </MenuList>
@@ -242,7 +242,7 @@ export default function SideBarTutelle({path , auth , handleClose , handleMenu,a
                                     onClose={handleClose}
                                     style={{marginTop : '2rem'}}
                                 >
-                                    <MenuItem onClick={()=>{dispatch(logoutUser()); history.push('/')}}>Se deconnecter</MenuItem>
+                                    <MenuItem onClick={()=>{dispatch(logoutUser()); history.push('/login')}}>Se deconnecter</MenuItem>
                                     <MenuItem onClick={handleClose}>My account</MenuItem>
                                 </Menu>
                             </div>

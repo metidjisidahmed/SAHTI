@@ -2,18 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7add7820-c722-4d92-a889-55e2d1f7533a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compounents/SignUp/Asset 7-100.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compounents/SignUp/bigLogo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Header/HeaderCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Header/HeaderCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/RdvEnAttenteCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Medecin/ScheduleMedecinCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SideBarMedecine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/SideBarTutelle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SideBarTutelle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/LoginCompounent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/SignUp/SignUpCompounent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Tutelle/Accounts/AdherantAccounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Tutelle/Accounts/AdherantAccounts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Tutelle/Accounts/MedecinAccounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Tutelle/Accounts/MedecinAccounts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compounents/Tutelle/VaccinationListsCompounent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compounents/Tutelle/VaccinationListsCompounent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/accountsReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/vaccinationListReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/vaccinationListReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +47,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Compounents/SignUp" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -61,6 +61,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\src\Compounents\SignUp" />
+      <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\public" />
       <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\src\img" />
       <recent name="C:\Users\user\Documents\GitHub\backup_prototype_projet_1cs\src\Compounents" />
     </key>
@@ -94,6 +96,7 @@
       <workItem from="1625189373439" duration="1514000" />
       <workItem from="1625193311060" duration="3426000" />
       <workItem from="1625198714888" duration="7192000" />
+      <workItem from="1625313380361" duration="10036000" />
     </task>
     <servers />
   </component>
