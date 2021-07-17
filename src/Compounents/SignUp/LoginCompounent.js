@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -94,7 +94,10 @@ export default function LoginCompounent() {
             })
             .catch(err=>dispatch(loginUserError(err)))
 
-    }
+    };
+    useEffect(()=>{
+        alert('PLEASE READ BEFORE CONTINUE\nThere are 3 types of accounts :\n1/ Adherants (Patients ) Acccounts: login using the email "bacha@esi.dz" and password "123"\n2/ Doctors Accounts : login using the email "med1@esi.dz" and password "123"\n3/ Tutelle Accounts : login using the email "tut1@esi.dz" and password "123' );
+    },[])
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
