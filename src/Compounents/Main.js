@@ -28,23 +28,28 @@ export default function Main(props){
     const user = useSelector( state => state.user);
     return (
        <React.Fragment>
-           <div style={locationPathName!=='/signup' ? {display : 'flex' , marginTop:'4rem'} : {display : 'flex' , marginTop:'4rem'} } >
+           <div style={locationPathName ==='/signup' ? {display : 'flex' , marginTop:'4rem'} : {display : 'flex' , marginTop:'4rem'} } >
                { <HeaderCompounent path={locationPathName}/>  }
 
                <Switch>
-                   <Route exact path='/' component={()=><HomeCompounent/>} />
+                   {/*<Route exact path='/' component={()=><HomeCompounent/>} />*/}
                    {
                        !user.data ? (
                            <React.Fragment>
+                               <Route exact path='/' component={()=><LoginCompounent/>} />
                                <Route path='/login' component={()=>{return <LoginCompounent/>}} />
                                <Route path='/signup' component={()=>{return <SignUpCompounent/>}}/>
                            </React.Fragment>
 
                        ) : user.data.accountType==='Adherant' ? (
-                           <Route path='/Adherant' component={()=>{return <AdherantCompounent/>}} />
+                           <React.Fragment>
+                               <Route exact path='/' component={()=><AdherantCompounent/>} />
+                               <Route path='/Adherant' component={()=>{return <AdherantCompounent/>}} />
+                           </React.Fragment>
 
                        ) : user.data.accountType==='Medecin' ? (
                            <React.Fragment>
+                               <Route exact path='/' component={()=><ScheduleMedecin/>} />
                                <Route exact path='/Medecin' component={()=>{return <ScheduleMedecin/>}}/>
                                <Route path='/Medecin/enAttente' component={()=>{return <RdvEnAttenteCompounent/>}}/>
                                <Route path='/Medecin/confirme' component={()=>{return <RdvConfirmesCompounent/>}}/>
@@ -52,6 +57,7 @@ export default function Main(props){
                            </React.Fragment>
                        ) : user.data.accountType==='Tutelle' ?(
                            <React.Fragment>
+                               <Route exact path='/' component={()=><AdherantAccounts/>} />
                                <Route exact path='/Tutelle' component={()=>{return <AdherantAccounts/>}}/>
                                <Route exact path='/Tutelle/accounts' component={()=>{return <AdherantAccounts/>}}/>
                                <Route exact path='/Tutelle/accounts/adherants' component={()=>{return <AdherantAccounts/>}}/>
